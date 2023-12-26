@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: .*\.auth(\.enc)?\.json$
+    age: "age132whj3dmvg0f6lgtfgpw66p70s8wvtlecml26ps9aagqqzvgusxqrhu0se"
