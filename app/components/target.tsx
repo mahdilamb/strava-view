@@ -5,23 +5,14 @@ export type ActivityTarget = {
   name: string
   predicate: (activity: SummaryActivity | SummaryActivityDecoded) => boolean
   color: string
+  count: [number
+    , (counts: number) => void]
 }
-export function Target() {
+export function Target(props: { target: ActivityTarget }) {
+  const { target } = props
   return (
-    <li role="presentation">
-      <a
-        href="#pills-home"
-        className="my-2 block rounded bg-neutral-100 px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 data-[te-nav-active]:!bg-primary-100 data-[te-nav-active]:text-primary-700 dark:bg-neutral-700 dark:text-white dark:data-[te-nav-active]:text-primary-700 md:mr-4"
-        id="pills-home-tab"
-        data-te-toggle="pill"
-        data-te-target="#pills-home"
-        data-te-nav-active
-        role="tab"
-        aria-controls="pills-home"
-        aria-selected="true"
-      >
-        Home
-      </a>
-    </li>
+    <li><span className="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full" style={{ background: target.color }}>
+      {target.name}
+    </span></li>
   );
 }

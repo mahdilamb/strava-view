@@ -1,8 +1,12 @@
-import { ActivityTarget } from "./target";
+import { ActivityTarget, Target } from "./target";
 
 export function Targets(props: {
   targets: ActivityTarget[],
-  setTargets: (targets: ActivityTarget[]) => void
+  setTargets: (targets: ActivityTarget[]) => void,
+  counts: {
+    [target: string]: number
+  },
 }) {
-  return <ul className="" style={{ background: "green" }}></ul>;
+  const { targets, setTargets } = props
+  return <ul className="flex">{targets.map((target, i) => <Target key={i} target={target}></Target>)}</ul>;
 }

@@ -10,7 +10,7 @@ import {
 import { decode } from "@googlemaps/polyline-codec";
 
 import { cache, readCache, writeCache } from "./utils";
-export type SummaryActivityDecoded = Omit<SummaryActivity, "map"> & { "map": Omit<PolylineMap, "summaryPolyline"> & { summaryPolyline?: [number, number][] } }
+export type SummaryActivityDecoded = Omit<SummaryActivity, "map" | "startDate"> & { "startDate": Date, "map": Omit<PolylineMap, "summaryPolyline"> & { summaryPolyline?: [number, number][] } }
 type AuthTokenResponse = {
   token_type: "Bearer",
   expires_at: number,
@@ -111,10 +111,11 @@ const yearToSpan = (year: number): [number, number] => {
   return [after.getTime(), before.getTime()]
 }
 
-const decodeSummaryActivity = (data: SummaryActivity[]) => {
+const decodeSummaryActivity = (data: SummaryActivity[]): SummaryActivityDecoded[] => {
   return data.map(entry => {
     return {
       ...entry,
+      startDate: entry.startDate ? new Date(entry.startDate) : undefined,
       map: {
         ...entry.map,
         summaryPolyline: entry.map?.summaryPolyline
@@ -125,8 +126,8 @@ const decodeSummaryActivity = (data: SummaryActivity[]) => {
   })
 }
 
-export async function getActivities(auth: AuthTokenResponse, timespan: [number, number] = yearToSpan(2023)): Promise<SummaryActivityDecoded[]> {
-  const params = { "before": timespan[1] / 1000, "after": timespan[0] / 1000, "page": 1 }
+export async function getActivities(auth: AuthTokenResponse, timespan: [number | undefined, number | undefined] = yearToSpan(2023)): Promise<SummaryActivityDecoded[]> {
+  const params = { "before": timespan[1] ? timespan[1] / 1000 : undefined, "after": timespan[0] ? timespan[0] / 1000 : undefined, "page": 1 }
   var combinedResult: SummaryActivity[] = []
   const activitiesApi = new ActivitiesApi(
     new Configuration({
@@ -160,7 +161,7 @@ export async function getActivities(auth: AuthTokenResponse, timespan: [number, 
         }
       })
     })
-  return decodeSummaryActivity(combinedResult.filter(activity => activity.sportType === "Run"))
+  return decodeSummaryActivity(combinedResult.filter(activity => activity.sportType === "Run")).sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
 
 
 }
