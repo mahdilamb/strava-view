@@ -9,7 +9,8 @@ import {
 import { decode } from "@googlemaps/polyline-codec";
 
 import { readCache, writeCache } from "../cache-utils";
-import { AuthTokenResponse } from "./tokens";
+import { AuthTokenDetails, AuthTokenResponse } from "./tokens";
+import { yearToSpan } from "../dates";
 export type SummaryActivityDecoded = Omit<
   SummaryActivity,
   "map" | "startDate"
@@ -18,12 +19,6 @@ export type SummaryActivityDecoded = Omit<
   map: Omit<PolylineMap, "summaryPolyline"> & {
     summaryPolyline?: [number, number][];
   };
-};
-
-const yearToSpan = (year: number): [number, number] => {
-  const before = new Date(year + 1, 0, 1, 0, 0, 0);
-  const after = new Date(year, 0, 1, 0, 0, 0);
-  return [after.getTime(), before.getTime()];
 };
 
 const decodeSummaryActivity = (
@@ -44,7 +39,7 @@ const decodeSummaryActivity = (
 };
 
 export async function getActivities(
-  auth: AuthTokenResponse,
+  auth: AuthTokenDetails,
   timespan: [number | undefined, number | undefined] = yearToSpan(2023),
 ): Promise<SummaryActivityDecoded[]> {
   const params = {
