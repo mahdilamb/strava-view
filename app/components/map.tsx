@@ -2,84 +2,57 @@
 import "leaflet/dist/leaflet.css";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer } from "react-leaflet/MapContainer";
+import colorbrewer from "colorbrewer";
 
-import { TileLayer } from "react-leaflet/TileLayer";
+import { TileLayer, TileLayerProps } from "react-leaflet/TileLayer";
 import { useMap, useMapEvents } from "react-leaflet/hooks";
 import { Polyline } from "react-leaflet/Polyline";
-import { SummaryActivityDecoded } from "../service";
-import { ActivityTarget } from "./target";
-import { LayersControl, Pane, ZoomControl } from "react-leaflet";
-import { Control, DomUtil, LatLngExpression, Map as LeafletMap, control, latLngBounds } from "leaflet";
+import { SummaryActivityDecoded } from "../strava-service/service";
+import { ActivityTarget } from "./map-controls/target";
+
 import { Animator, activityAnimator } from "../timeline";
-type TimelineControlOpts = {
-  target: any
-}
+import { Targets } from "./map-controls/targets";
+import { Timeline } from "./map-controls/timeline";
+import * as mapLayers from "../map-layers";
 
-const Timeline = (props: {
-  date: Date,
-  setDate: (newDate: Date) => void,
-  animator: Animator
-}) => {
-  const map = useMap()
-  const { date, setDate, animator } = props
-  useEffect(
-    () => {
-      if (!animator.steps) {
-        return
-      }
-      animator.reset(map)
-
-      const TimelineControl = Control.extend({
-        onAdd: function (map: LeafletMap) {
-          var button = DomUtil.create('a');
-
-          button.innerHTML = "<span>Play</span>"
-          button.addEventListener("click", async (e) => {
-
-            e.preventDefault()
-            e.stopPropagation()
-            animator.reset(map)
-            await animator.play(map)
-            return false
-          })
-
-          return button;
-        },
-
-        onRemove: function (map: LeafletMap) {
-          // Nothing to do here
-        }
-      })
-      control.timelineControl = function (opts: TimelineControlOpts) {
-        return new TimelineControl(opts);
-      }
-      control.timelineControl({ position: 'bottomleft' }).addTo(map);
-    }, [animator, map]
-  )
-
-  return <div className="leaflet-bar leaflet-control"></div>
-}
-
-
-export const Map = (props: {
-  activities: SummaryActivityDecoded[], targets: ActivityTarget[], date: Date,
-  setDate: (newDate: Date) => void,
-}) => {
-  const { activities, targets, date, setDate } = props
-  const runs = useMemo(() => activities
-    .filter(activity => !!activity.map?.summaryPolyline), [activities])
-  const animator = activityAnimator(runs, targets)
+export const Map = (props: { activities: SummaryActivityDecoded[] }) => {
+  const { activities } = props;
+  const runs = useMemo(
+    () => activities.filter((activity) => !!activity.map?.summaryPolyline),
+    [activities],
+  );
+  const [targets, setTargets] = useState<ActivityTarget[]>([
+    {
+      name: "5km",
+      predicate: (activity) => activity.distance >= 5_000,
+      color: colorbrewer.Greens[3][2],
+      count: useState(0),
+    },
+    {
+      name: "10km",
+      predicate: (activity) => activity.distance >= 10_000,
+      color: colorbrewer.Blues[3][2],
+      count: useState(0),
+    },
+    {
+      name: "21.1km",
+      predicate: (activity) => activity.distance >= 21_100,
+      color: colorbrewer.Reds[3][2],
+      count: useState(0),
+    },
+  ]);
+  const animator = activityAnimator(runs, targets);
   return (
-    <MapContainer center={[51.505, -0.09]} zoom={6}
+    <MapContainer
+      center={[51.505, -0.09]}
+      zoom={6}
       className="w-dvw h-dvh flex-1"
     >
-
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-
+        {...mapLayers.Stadia.AlidadeSmooth}
       />
-      <Timeline date={date} setDate={setDate} animator={animator} ></Timeline>
+      <Timeline animator={animator}></Timeline>
+      <Targets targets={targets} setTargets={setTargets}></Targets>
     </MapContainer>
   );
-}
+};

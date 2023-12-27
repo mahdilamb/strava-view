@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { SummaryActivityDecoded } from "../service";
+import { SummaryActivityDecoded } from "../../strava-service/service";
 import { ActivityTarget } from "./target";
 
 type CalendarDisplay = "Week";
@@ -24,15 +24,16 @@ const DefaultView: Record<CalendarDisplay, (date: Date) => number> = {
         ((date.getTime() - week1.getTime()) / 86400000 -
           3 +
           ((week1.getDay() + 6) % 7)) /
-        7,
+          7,
       )
     );
   },
 };
 export function Calendar(props: {
-  date: Date,
-  setDate: (newDate: Date) => void,
-  activities: SummaryActivityDecoded[], targets: ActivityTarget[],
+  date: Date;
+  setDate: (newDate: Date) => void;
+  activities: SummaryActivityDecoded[];
+  targets: ActivityTarget[];
 }) {
   const { date, setDate } = props;
   const [viewType, setViewType] = useState<CalendarDisplay>("Week");

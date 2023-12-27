@@ -1,7 +1,7 @@
 "use client";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
-import { getToken } from "../service";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { codeToToken } from "../strava-service/tokens";
 
 export default function ExchangeToken() {
   const params = useSearchParams();
@@ -9,7 +9,7 @@ export default function ExchangeToken() {
 
   useEffect(() => {
     const checkAndStoreToken = async () => {
-      const token = await getToken(params.get("code"));
+      const token = await codeToToken(params.get("code"));
       localStorage.setItem("stravaAuth", JSON.stringify(token));
       router.push("/");
     };
