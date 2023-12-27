@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import "leaflet/dist/leaflet.css";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer } from "react-leaflet/MapContainer";
@@ -10,7 +9,6 @@ import { Polyline } from "react-leaflet/Polyline";
 import { SummaryActivityDecoded } from "../strava-service/service";
 import { ActivityTarget } from "./map-controls/target";
 
-import { Animator, activityAnimator } from "../timeline";
 import { Targets } from "./map-controls/targets";
 import { Timeline } from "./map-controls/timeline";
 import * as mapLayers from "../map-layers";
@@ -41,17 +39,14 @@ export const Map = (props: { activities: SummaryActivityDecoded[] }) => {
       count: useState(0),
     },
   ]);
-  const animator = activityAnimator(runs, targets);
   return (
     <MapContainer
       center={[51.505, -0.09]}
       zoom={6}
       className="w-dvw h-dvh flex-1"
     >
-      <TileLayer
-        {...mapLayers.Stadia.AlidadeSmooth}
-      />
-      <Timeline animator={animator}></Timeline>
+      <TileLayer {...mapLayers.CartoDB.Positron} />
+      <Timeline activities={runs} targets={targets}></Timeline>
       <Targets targets={targets} setTargets={setTargets}></Targets>
     </MapContainer>
   );

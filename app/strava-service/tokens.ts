@@ -1,7 +1,7 @@
 "use server";
 import { promisify } from "util";
 
-type AuthTokenDetails = {
+export type AuthTokenDetails = {
   token_type: "Bearer";
   expires_at: number;
   expires_in: number;

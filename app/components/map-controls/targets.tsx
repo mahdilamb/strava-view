@@ -1,4 +1,3 @@
-
 import { SummaryActivityDecoded } from "../../strava-service/service";
 import { SummaryActivity } from "../../strava";
 import { CustomControl } from "./control";
@@ -30,7 +29,7 @@ export function Targets(props: {
   return (
     <CustomControl position="bottomright">
       <ul className="flex">
-        {targets.map(target => (
+        {targets.map((target) => (
           <Target key={target.name} target={target}></Target>
         ))}
       </ul>
