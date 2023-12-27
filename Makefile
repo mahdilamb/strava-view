@@ -1,4 +1,4 @@
-.PHONY: help strava-api serve
+.PHONY: help strava-api serve pretty
 default: help
 
 strava-api: #  Download the strava api to be used as a service.
@@ -9,7 +9,8 @@ strava-api: output=./app/strava
 
 age-key:
 	mkdir -p ~/.config/sops/age/; age-keygen -o ~/.config/sops/age/keys.txt
-
+pretty:
+	npx prettier ./app --write
 serve:
 	npm run dev
 help: # Show help for each of the Makefile recipes.

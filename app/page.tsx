@@ -1,38 +1,42 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Calendar, Targets, Map } from "./components";
-import { SummaryActivityDecoded, authUrl, getActivities, refreshToken } from "./service";
-import { ActivityTarget } from "./components/target";
-import colorbrewer from "colorbrewer"
-const getToken = () => {
+import { Map } from "./components";
+import {
+  SummaryActivityDecoded,
+  getActivities,
+} from "./strava-service/service";
+import { authUrl, refreshToken } from "./strava-service";
+
+const STORAGE_KEY = "stravaAuth";
+
+export const getToken = () => {
   var potentialAuth;
   if (
-    (potentialAuth = JSON.parse(localStorage.getItem("stravaAuth") || "{}"))
+    (potentialAuth = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}")) &&
+    "expires_at" in potentialAuth
   ) {
-    if (new Date(potentialAuth.expires_at * 1000) > new Date()) {
+    if (new Date() < new Date(potentialAuth.expires_at * 1000)) {
       return potentialAuth;
     }
     return refreshToken(potentialAuth).then((token) => {
-      if (token.errors) {
-        return null;
+      if ("errors" in token) {
+        throw JSON.stringify(token.errors);
       }
-      localStorage.setItem("stravaAuth", JSON.stringify(token));
-      console.log("Refreshed token");
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(token));
+      console.debug("Refreshed token.");
       return token;
     });
   }
 };
 
 export default function Home() {
-  const [date, setDate] = useState<Date>(new Date(new Date().getFullYear(), 0, 1, 0, 0, 0));
   const [auth, setAuth] = useState(null);
   const [stravaAuthUrl, setStravaAuthUrl] = useState<string>();
   const [activities, setActivities] = useState<SummaryActivityDecoded[]>([]);
-  const [targets, setTargets] = useState<ActivityTarget[]>([
-    { name: "5km", predicate: activity => activity.distance >= 5_000, color: colorbrewer.Greens[3][2], count: useState(0) },
-    { name: "10km", predicate: activity => activity.distance >= 10_000, color: colorbrewer.Blues[3][2], count: useState(0) },
-    { name: "21.1km", predicate: activity => activity.distance >= 21_100, color: colorbrewer.Reds[3][2], count: useState(0) }
-  ])
+
+  useEffect(() => {
+    authUrl().then(setStravaAuthUrl);
+  }, []);
   useEffect(() => {
     const checkAuth = async () => {
       var potentialToken;
@@ -42,9 +46,6 @@ export default function Home() {
       }
     };
     checkAuth();
-    authUrl().then((data) => {
-      setStravaAuthUrl(data);
-    });
   }, []);
   useEffect(() => {
     if (auth !== null) {
@@ -54,13 +55,7 @@ export default function Home() {
     }
   }, [auth]);
   if (auth !== null) {
-    return (
-      <div className="flex flex-col h-dvh w-dvw">
-        <Targets targets={targets} setTargets={setTargets} ></Targets>
-        {/* <Calendar targets={targets} activities={activities} date={date} setDate={setDate}></Calendar> */}
-        <Map targets={targets} activities={activities} date={date} setDate={setDate}></Map>
-      </div>
-    );
+    return <Map activities={activities}></Map>;
   }
   if (!stravaAuthUrl) {
     return <>Loading...</>;
