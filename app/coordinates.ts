@@ -6,6 +6,7 @@ export const combineBounds = (bounds: LatLngBounds[]): LatLngBounds[] => {
    * @param {LatLngBounds[]} bounds The input bounds.
    * @returns {LatLngBounds[]} A new array containing bounds, detached from the input.
    */
+
   const output: LatLngBounds[] = [];
   bounds.forEach((boundCopy) => {
     boundCopy = new LatLngBounds(
