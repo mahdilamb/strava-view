@@ -171,3 +171,4 @@ wwwroot/*.js
 node_modules
 typings
 .strava-cache/
+.tile-cache/
