@@ -5,17 +5,17 @@ export type ActivityTarget = {
   name: string;
   predicate: (activity: SummaryActivity | SummaryActivityDecoded) => boolean;
   color: string;
-  count: [number, (counts: number) => void];
+  priority: number;
 };
-export function Target(props: { target: ActivityTarget }) {
-  const { target } = props;
+export function Target(props: { target: ActivityTarget; count: number }) {
+  const { target, count } = props;
   return (
     <li>
       <span
         className="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full"
         style={{ background: target.color }}
       >
-        {target.name}
+        {target.name}: {count}
       </span>
     </li>
   );
@@ -24,13 +24,18 @@ export function Target(props: { target: ActivityTarget }) {
 export function Targets(props: {
   targets: ActivityTarget[];
   setTargets: (targets: ActivityTarget[]) => void;
+  counts: { [name: string]: number };
 }) {
-  const { targets, setTargets } = props;
+  const { targets, setTargets, counts } = props;
   return (
     <CustomControl position="bottomright">
       <ul className="flex">
         {targets.map((target) => (
-          <Target key={target.name} target={target}></Target>
+          <Target
+            key={target.name}
+            target={target}
+            count={counts[target.name]}
+          ></Target>
         ))}
       </ul>
     </CustomControl>
