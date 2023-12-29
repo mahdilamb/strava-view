@@ -2,13 +2,14 @@
 import { authUrl } from "@/app/strava-service";
 import {
   SummaryActivityDecoded,
-  getActivities,
+  decodeSummaryActivity,
 } from "@/app/strava-service/service";
 import { useEffect, useState } from "react";
 import { Map } from "@/app/components/map";
 import { useParams } from "next/navigation";
 import { yearToSpan } from "@/app/dates";
 import { getToken } from "@/app/tokens";
+import { getActivities, initDB, syncDB } from "@/app/databases";
 
 export default function Year() {
   const [auth, setAuth] = useState(null);
@@ -28,9 +29,17 @@ export default function Year() {
   }, []);
   useEffect(() => {
     if (auth !== null) {
-      getActivities(auth, yearToSpan(parseInt(params.year))).then((data) => {
-        setActivities(data);
-      });
+      const getDB = async () => {
+        const db = await syncDB(await initDB(), auth);
+        setActivities(
+          await getActivities(
+            db,
+            "Run",
+            yearToSpan(parseInt(params?.year as string)),
+          ),
+        );
+      };
+      getDB();
     }
   }, [auth, params]);
   if (auth !== null) {
