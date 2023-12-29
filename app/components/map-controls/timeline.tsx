@@ -16,22 +16,19 @@ const PAN_DURATION_MS = 1000;
 export const Timeline = (props: {
   activities: SummaryActivityDecoded[];
   targets: ActivityTarget[];
+  activityIdx: number;
+  setActivityIdx: (idx: number) => void;
 }) => {
-  const { activities, targets } = props;
-  const [activityIdx, setActivityIdx] = useState(0);
+  const { activities, targets, activityIdx, setActivityIdx } = props;
   const [playing, setPlaying] = useState(false);
   const [restWidth, setRestWidth] = useState(2);
   const map = useMap();
+  const sortedTargets = targets.slice().sort((a, b) => a.priority - b.priority);
   const activityTargets: (ActivityTarget | undefined)[] = activities.map(
-    (activity) => {
-      var assignedTarget;
-      targets.forEach((target) => {
-        if (target.predicate(activity)) {
-          assignedTarget = target;
-        }
-      });
-      return assignedTarget;
-    },
+    (activity) =>
+      sortedTargets.find<ActivityTarget>((target) =>
+        target.predicate(activity),
+      ),
   );
   const bounds = activities.map((activity) =>
     latLngBounds(activity.map.summaryPolyline),
@@ -75,7 +72,7 @@ export const Timeline = (props: {
 
         if (activityIdx >= activities.length) {
           setPlaying(false);
-          setActivityIdx(0);
+          setActivityIdx(-1);
           setRestWidth(8);
 
           reset({ animate: true, duration: PAN_DURATION_MS });
@@ -89,14 +86,19 @@ export const Timeline = (props: {
       }
     };
     nextFrame();
-  }, [activities.length, activityIdx, boundGroups, map, playing, reset]);
-
+  }, [
+    activities.length,
+    activityIdx,
+    boundGroups,
+    map,
+    playing,
+    reset,
+    setActivityIdx,
+  ]);
   if (!groupedBounds.length) {
     return <></>;
   }
-
   const { url: tileLayerUrl, ...tileLayerProps } = mapLayers.CartoDB.Positron;
-
   return (
     <>
       <TileLayer
@@ -135,8 +137,8 @@ export const Timeline = (props: {
                 positions={activity.map.summaryPolyline}
                 color={activityTargets[i]?.color ?? "grey"}
                 opacity={0.7}
-                weight={6}
-                markerRadius={20}
+                weight={3}
+                markerRadius={50}
               ></TracedPolyline>
             ) : (
               <Polyline
