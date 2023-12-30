@@ -1,11 +1,19 @@
-.PHONY: help strava-api serve pretty
+.PHONY: help strava-api serve pretty fitbit-api apis
 default: help
 
 strava-api: #  Download the strava api to be used as a service.
-	@rm -rf ${output}; docker run -v ${PWD}:${PWD} -w ${PWD} --user $(shell id -u):$(shell id -g) openapitools/openapi-generator-cli generate --skip-validate-spec --input-spec https://developers.strava.com/swagger/swagger.json -g typescript-fetch -o ${output} && [ "$(shell stat -c '%U %G' ${output}/api.ts)" = "${USER} ${USER}" ] || sudo chown -R ${USER}:${USER} ${output}; npx prettier ${output} --write
+	@rm -rf ${output}; docker run -v ${PWD}:${PWD} -w ${PWD} --user $(shell id -u):$(shell id -g) openapitools/openapi-generator-cli generate --skip-validate-spec --input-spec https://developers.strava.com/swagger/swagger.json -g typescript-fetch -o ${output} && [ "$(shell stat -c '%U %G' ${output}/index.ts)" = "${USER} ${USER}" ] || sudo chown -R ${USER}:${USER} ${output}; npx prettier ${output} --write
 
 
 strava-api: output=./app/strava
+
+fitbit-api: #  Download the strava api to be used as a service.
+	@rm -rf ${output}; docker run -v ${PWD}:${PWD} -w ${PWD} --user $(shell id -u):$(shell id -g) openapitools/openapi-generator-cli generate --skip-validate-spec --input-spec https://dev.fitbit.com/build/reference/web-api/explore/fitbit-web-api-swagger.json -g typescript-fetch -o ${output} && [ "$(shell stat -c '%U %G' ${output}/index.ts)" = "${USER} ${USER}" ] || sudo chown -R ${USER}:${USER} ${output}; npx prettier ${output} --write
+
+
+fitbit-api: output=./app/fitbit
+
+apis: fitbit-api strava-api
 
 age-key:
 	mkdir -p ~/.config/sops/age/; age-keygen -o ~/.config/sops/age/keys.txt
