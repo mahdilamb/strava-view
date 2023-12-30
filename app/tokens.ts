@@ -23,3 +23,7 @@ export const getToken = () => {
     });
   }
 };
+
+export function deleteToken() {
+  localStorage.removeItem(STORAGE_KEY);
+}
