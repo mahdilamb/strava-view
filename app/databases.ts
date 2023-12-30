@@ -219,6 +219,9 @@ export async function getActivities(
     result = await db.getAll("activitySummaries");
   }
   return decodeSummaryActivity(
-    result.sort((a, b) => a.startDate?.getTime() - b.startDate?.getTime()),
+    result.sort(
+      (a, b) =>
+        (a.startDate?.getTime() as number) - (b.startDate?.getTime() as number),
+    ),
   );
 }

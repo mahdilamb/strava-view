@@ -1,5 +1,10 @@
 "use client";
-import { FitBoundsOptions, LatLngBounds, latLngBounds } from "leaflet";
+import {
+  FitBoundsOptions,
+  LatLngBounds,
+  LatLngExpression,
+  latLngBounds,
+} from "leaflet";
 import { ActivityTarget } from "./targets";
 import { SummaryActivityDecoded } from "@/app/strava-service/service";
 import { CustomControl } from "./control";
@@ -25,14 +30,11 @@ export const Timeline = (props: {
   const [restWidth, setRestWidth] = useState(2);
   const map = useMap();
   const sortedTargets = targets.slice().sort((a, b) => a.priority - b.priority);
-  const activityTargets: (ActivityTarget | undefined)[] = activities.map(
-    (activity) =>
-      sortedTargets.find<ActivityTarget>((target) =>
-        target.predicate(activity),
-      ),
+  const activityTargets = activities.map((activity) =>
+    sortedTargets.find((target) => target.predicate(activity)),
   );
   const bounds = activities.map((activity) =>
-    latLngBounds(activity.map.summaryPolyline),
+    latLngBounds(activity.map.summaryPolyline as LatLngExpression[]),
   );
 
   var groupedBounds = combineBounds(bounds);
@@ -50,7 +52,7 @@ export const Timeline = (props: {
     : undefined;
   const reset = useCallback(
     (options?: FitBoundsOptions) => {
-      map.fitBounds(allBounds, options);
+      map.fitBounds(allBounds as LatLngBounds, options);
     },
     [allBounds, map],
   );
@@ -139,7 +141,7 @@ export const Timeline = (props: {
               <TracedPolyline
                 key={activity.id}
                 duration={DRAW_DURATION_MS}
-                positions={activity.map.summaryPolyline}
+                positions={activity.map.summaryPolyline as LatLngExpression[]}
                 color={activityTargets[i]?.color ?? "grey"}
                 opacity={0.7}
                 weight={3}
@@ -148,7 +150,7 @@ export const Timeline = (props: {
             ) : (
               <Polyline
                 key={activity.id}
-                positions={activity.map.summaryPolyline}
+                positions={activity.map.summaryPolyline as LatLngExpression[]}
                 color={activityTargets[i]?.color ?? "grey"}
                 opacity={0.7}
                 weight={2}
@@ -158,7 +160,7 @@ export const Timeline = (props: {
         : activities.map((activity, i) => (
             <Polyline
               key={`rested-${activity.id}`}
-              positions={activity.map.summaryPolyline}
+              positions={activity.map.summaryPolyline as LatLngExpression[]}
               color={activityTargets[i]?.color ?? "grey"}
               opacity={0.7}
               weight={restWidth}

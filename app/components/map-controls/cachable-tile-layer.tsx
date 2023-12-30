@@ -17,7 +17,7 @@ export const CacheableTileLayer = (
       req.open("GET", url, false);
       req.send();
       return new Blob([
-        Uint8Array.from(req.response, (c) => c.charCodeAt(0)).buffer,
+        Uint8Array.from(req.response, (c: string) => c.charCodeAt(0)).buffer,
       ]);
     }, 64);
 
@@ -32,12 +32,12 @@ export const CacheableTileLayer = (
               case "x":
               case "y":
               case "z":
-                url = url.replace(arg, coords[a]);
+                url = url.replace(arg, coords[a].toString());
                 break;
               case "s":
                 url = url.replace(
                   arg,
-                  props.subdomains[0],
+                  (props.subdomains as string)[0],
                   // Math.floor(Math.random() * props.subdomains?.length)
                 );
 
