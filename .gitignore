@@ -170,4 +170,3 @@ dist
 wwwroot/*.js
 node_modules
 typings
-.tile-cache/

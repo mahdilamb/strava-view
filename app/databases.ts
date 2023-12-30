@@ -71,9 +71,9 @@ const lastSynchronization = async (db: IDBPDatabase<StravaDBv1>) => {
     if (!lastSynchronization?.completed) {
       const tx = db.transaction("activitySummaries", "readwrite");
       const index = tx.store.index("synchronizationIdx");
-      for await (const cursor of index.iterate(lastSynchronizationKey)) {
-        console.log(cursor);
-      }
+      // for await (const cursor of index.iterate(lastSynchronizationKey)) {
+      //   console.log(cursor);
+      // }
       //TODO delete all the data from incomplete synchronization
       throw "Unsupported";
     }

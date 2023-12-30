@@ -3,12 +3,13 @@ import { FitBoundsOptions, LatLngBounds, latLngBounds } from "leaflet";
 import { ActivityTarget } from "./targets";
 import { SummaryActivityDecoded } from "@/app/strava-service/service";
 import { CustomControl } from "./control";
-import { useMap, Polyline, TileLayer } from "react-leaflet";
+import { useMap, Polyline, TileLayer, Rectangle } from "react-leaflet";
 import { sleep } from "@/app/animations";
 import { combineBounds } from "@/app/coordinates";
 import { useCallback, useEffect, useState } from "react";
 import { TracedPolyline } from "./traced-polyline";
 import * as mapLayers from "@/app/map-layers";
+import { CacheableTileLayer } from "./cachable-tile-layer";
 
 const DRAW_DURATION_MS = 100;
 const PAN_DURATION_MS = 1000;
@@ -53,12 +54,7 @@ export const Timeline = (props: {
     },
     [allBounds, map],
   );
-  useEffect(() => {
-    if (allBounds) {
-      setRestWidth(8);
-      reset();
-    }
-  }, [allBounds, reset]);
+
   useEffect(() => {
     const nextFrame = async () => {
       if (playing) {
@@ -91,10 +87,15 @@ export const Timeline = (props: {
         }
       }
     };
+    // if (allBounds) {
+    //   setRestWidth(8);
+    //   reset();
+    // }
     nextFrame();
   }, [
     activities.length,
     activityIdx,
+    allBounds,
     boundGroups,
     map,
     playing,
@@ -104,14 +105,13 @@ export const Timeline = (props: {
   if (!groupedBounds.length) {
     return <></>;
   }
-  const { url: tileLayerUrl, ...tileLayerProps } = mapLayers.CartoDB.Positron;
   return (
     <>
-      <TileLayer
-        {...tileLayerProps}
-        url={`/api/tiles?useCache=${playing}&url=${tileLayerUrl}`}
-      />
-
+      {playing ? (
+        <CacheableTileLayer {...mapLayers.CartoDB.Positron} />
+      ) : (
+        <TileLayer {...mapLayers.CartoDB.Positron} />
+      )}
       <CustomControl className="leaflet-bar leaflet-control">
         <a
           href="#"
@@ -122,7 +122,6 @@ export const Timeline = (props: {
               setPlaying(false);
             } else {
               setRestWidth(5);
-
               setPlaying(true);
               reset({ animate: true, duration: PAN_DURATION_MS });
               await sleep(PAN_DURATION_MS);
@@ -144,7 +143,7 @@ export const Timeline = (props: {
                 color={activityTargets[i]?.color ?? "grey"}
                 opacity={0.7}
                 weight={3}
-                markerRadius={50}
+                markerRadius={20}
               ></TracedPolyline>
             ) : (
               <Polyline

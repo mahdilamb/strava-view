@@ -11,7 +11,6 @@
   "dependencies": {
     "@googlemaps/polyline-codec": "^1.0.28",
     "colorbrewer": "^1.5.6",
-    "filenamify": "^6.0.0",
     "idb": "^8.0.0",
     "leaflet": "^1.9.4",
     "next": "14.0.4",
