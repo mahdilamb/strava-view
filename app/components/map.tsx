@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import { MapContainer } from "react-leaflet/MapContainer";
 import colorbrewer from "colorbrewer";
 
-import { TileLayer, TileLayerProps } from "react-leaflet/TileLayer";
 import { SummaryActivityDecoded } from "../strava-service/service";
 import { ActivityTarget } from "./map-controls/targets";
 

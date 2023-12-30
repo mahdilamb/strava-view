@@ -30,6 +30,6 @@ export const CustomControl = (props: {
     return () => {
       controlElement.remove();
     };
-  }, [children, controlProps, map]);
+  }, [children, className, controlProps, map]);
   return null;
 };
