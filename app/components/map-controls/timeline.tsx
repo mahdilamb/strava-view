@@ -54,6 +54,12 @@ export const Timeline = (props: {
     [allBounds, map],
   );
   useEffect(() => {
+    if (allBounds) {
+      setRestWidth(8);
+      reset();
+    }
+  }, [allBounds, reset]);
+  useEffect(() => {
     const nextFrame = async () => {
       if (playing) {
         if (
