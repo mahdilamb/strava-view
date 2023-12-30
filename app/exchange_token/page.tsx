@@ -9,7 +9,7 @@ export default function ExchangeToken() {
 
   useEffect(() => {
     const checkAndStoreToken = async () => {
-      const token = await codeToToken(params.get("code"));
+      const token = await codeToToken(params?.get("code") as string);
       localStorage.setItem("stravaAuth", JSON.stringify(token));
       router.push("/");
     };

@@ -1,4 +1,5 @@
 import { sleep } from "@/app/animations";
+import { LatLngExpression } from "leaflet";
 import { useEffect, useState } from "react";
 import { Circle } from "react-leaflet";
 import { Polyline, PolylineProps } from "react-leaflet/Polyline";
@@ -39,7 +40,7 @@ export const TracedPolyline = (
       <Polyline {...props} positions={positions.slice(0, frame)}></Polyline>
       <Circle
         color={props.color}
-        center={positions[frame]}
+        center={positions[frame] as LatLngExpression}
         radius={markerRadius ?? 4}
       ></Circle>
     </>

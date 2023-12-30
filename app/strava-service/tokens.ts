@@ -36,14 +36,16 @@ type AuthTokenError = {
 };
 
 export type AuthTokenResponse = AuthTokenDetails | AuthTokenError;
-
+type Cached<T, R = any> = T & {
+  __cachedResult: R;
+};
 async function stravaAuth(): Promise<{
   ClientId: number;
   ClientSecret: string;
   from: "file" | "sops";
 }> {
   if (stravaAuth.hasOwnProperty("__cachedResult")) {
-    return stravaAuth.__cachedResult;
+    return (stravaAuth as Cached<typeof stravaAuth>).__cachedResult;
   }
   var result;
   try {
@@ -57,7 +59,7 @@ async function stravaAuth(): Promise<{
     const { stdout } = await promisify(exec)("sops -d ./strava.auth.enc.json");
     result = { ...JSON.parse(stdout), from: "sops" };
   }
-  stravaAuth.__cachedResult = result;
+  (stravaAuth as Cached<typeof stravaAuth>).__cachedResult = result;
   return result;
 }
 

@@ -6,7 +6,7 @@ export const LRUCache = <K extends PropertyKey, V>(
   const cache: Map<K, V> = new Map();
 
   return (key: K) => {
-    const cached = cache[key];
+    const cached = cache.get(key);
     if (cached !== undefined) {
       keys.splice(keys.indexOf(key, 1));
       keys.push(key);
@@ -14,10 +14,12 @@ export const LRUCache = <K extends PropertyKey, V>(
     }
 
     while (keys.length > maxItems) {
-      cache.delete(keys.shift());
+      cache.delete(keys.shift() as K);
     }
 
     keys.push(key);
-    return (cache[key] = fetch(key));
+    var newValue;
+    cache.set(key, (newValue = fetch(key)));
+    return newValue;
   };
 };

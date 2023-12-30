@@ -19,29 +19,26 @@ export const Map = (props: { activities: SummaryActivityDecoded[] }) => {
   const [targets, setTargets] = useState<ActivityTarget[]>([
     {
       name: "5km",
-      predicate: (activity) => activity.distance >= 5_000,
+      predicate: (activity) => (activity.distance as number) >= 5_000,
       color: colorbrewer.Greens[3][2],
       priority: 3,
     },
     {
       name: "10km",
-      predicate: (activity) => activity.distance >= 10_000,
+      predicate: (activity) => (activity.distance as number) >= 10_000,
       color: colorbrewer.Blues[3][2],
       priority: 2,
     },
     {
       name: "21.1km",
-      predicate: (activity) => activity.distance >= 21_100,
+      predicate: (activity) => (activity.distance as number) >= 21_100,
       color: colorbrewer.Reds[3][2],
       priority: 1,
     },
   ]);
   const sortedTargets = targets.slice().sort((a, b) => a.priority - b.priority);
-  const activityTargets: (ActivityTarget | undefined)[] = activities.map(
-    (activity) =>
-      sortedTargets.find<ActivityTarget>((target) =>
-        target.predicate(activity),
-      ),
+  const activityTargets = activities.map((activity) =>
+    sortedTargets.find((target) => target.predicate(activity)),
   );
   return (
     <MapContainer

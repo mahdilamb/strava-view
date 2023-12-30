@@ -13,10 +13,10 @@ export const combineBounds = (bounds: LatLngBounds[]): LatLngBounds[] => {
       boundCopy.getSouthWest(),
       boundCopy.getNorthEast(),
     );
-    var overlaps: number[] = output
+    var overlaps = output
       .map((group, i) => (group.intersects(boundCopy) ? i : undefined))
       .filter((group) => group !== undefined)
-      .reverse();
+      .reverse() as number[];
     if (overlaps.length) {
       output.push(
         overlaps
