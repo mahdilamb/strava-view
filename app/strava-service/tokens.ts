@@ -68,7 +68,7 @@ export async function authUrl() {
    * Get the Strava authentication URL.
    */
   const STRAVA_CLIENT = await stravaAuth();
-  return `http://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT.ClientId}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=activity:read`;
+  return `http://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT.ClientId}&response_type=code&redirect_uri=http://localhost:${process.env.PORT || 3000}/exchange_token&approval_prompt=force&scope=activity:read`;
 }
 
 export async function codeToToken(code: string): Promise<AuthTokenResponse> {
