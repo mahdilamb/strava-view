@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { useMap } from "react-leaflet";
 
 export const CustomControl = (props: {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
   position?: "bottomleft" | "topleft" | "topright" | "bottomright";
   className?: string;
 }) => {
@@ -17,11 +17,11 @@ export const CustomControl = (props: {
     domElement.className = className || "";
     createRoot(domElement).render(children);
     const ControlImpl = Control.extend({
-      onAdd: function (map: Map) {
+      onAdd: () => {
         return domElement;
       },
 
-      onRemove: function (map: Map) {
+      onRemove: () => {
         domElement.remove();
       },
     });

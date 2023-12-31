@@ -1,6 +1,6 @@
 "use server";
 
-import { PolylineMap, SummaryActivity } from "../strava";
+import { PolylineMap, SummaryActivity } from "@/strava";
 import { decode } from "@googlemaps/polyline-codec";
 
 export type SummaryActivityDecoded = Omit<

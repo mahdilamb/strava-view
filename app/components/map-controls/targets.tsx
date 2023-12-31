@@ -1,5 +1,5 @@
-import { SummaryActivityDecoded } from "../../strava-service/service";
-import { SummaryActivity } from "../../strava";
+import { SummaryActivityDecoded } from "@/strava-service/service";
+import { SummaryActivity } from "@/strava";
 import { CustomControl } from "./control";
 export type ActivityTarget = {
   name: string;

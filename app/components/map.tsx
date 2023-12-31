@@ -1,9 +1,8 @@
-import "leaflet/dist/leaflet.css";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer } from "react-leaflet/MapContainer";
 import colorbrewer from "colorbrewer";
 
-import { SummaryActivityDecoded } from "../strava-service/service";
+import { SummaryActivityDecoded } from "../../strava-service/service";
 import { ActivityTarget } from "./map-controls/targets";
 
 import { Targets } from "./map-controls/targets";
@@ -41,11 +40,7 @@ export const Map = (props: { activities: SummaryActivityDecoded[] }) => {
     sortedTargets.find((target) => target.predicate(activity)),
   );
   return (
-    <MapContainer
-      center={[51.505, -0.09]}
-      zoom={6}
-      className="w-dvw h-dvh flex-1"
-    >
+    <>
       <Timeline
         activities={runs}
         targets={targets}
@@ -66,6 +61,6 @@ export const Map = (props: { activities: SummaryActivityDecoded[] }) => {
           ]),
         )}
       ></Targets>
-    </MapContainer>
+    </>
   );
 };

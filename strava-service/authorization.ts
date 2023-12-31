@@ -1,6 +1,9 @@
 "use server";
-import { promisify } from "util";
-
+import { readSecrets } from "../app/auth";
+type StravaSecrets = {
+  ClientId: string;
+  ClientSecret: string;
+};
 export type AuthTokenDetails = {
   token_type: "Bearer";
   expires_at: number;
@@ -36,39 +39,17 @@ type AuthTokenError = {
 };
 
 export type AuthTokenResponse = AuthTokenDetails | AuthTokenError;
-type Cached<T, R = any> = T & {
-  __cachedResult: R;
-};
-async function stravaAuth(): Promise<{
-  ClientId: number;
-  ClientSecret: string;
-  from: "file" | "sops";
-}> {
-  if (stravaAuth.hasOwnProperty("__cachedResult")) {
-    return (stravaAuth as Cached<typeof stravaAuth>).__cachedResult;
-  }
-  var result;
-  try {
-    const fs = require("fs");
-    result = {
-      ...JSON.parse(await promisify(fs.readFile)("./strava.auth.json", "utf8")),
-      from: "file",
-    };
-  } catch {
-    const { exec } = require("child_process");
-    const { stdout } = await promisify(exec)("sops -d ./strava.auth.enc.json");
-    result = { ...JSON.parse(stdout), from: "sops" };
-  }
-  (stravaAuth as Cached<typeof stravaAuth>).__cachedResult = result;
-  return result;
-}
 
 export async function authUrl() {
   /**
    * Get the Strava authentication URL.
    */
-  const STRAVA_CLIENT = await stravaAuth();
-  return `http://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT.ClientId}&response_type=code&redirect_uri=http://localhost:${process.env.PORT || 3000}/exchange_token&approval_prompt=force&scope=activity:read`;
+  const STRAVA_CLIENT = await readSecrets<StravaSecrets>("strava");
+  return `http://www.strava.com/oauth/authorize?client_id=${
+    STRAVA_CLIENT.ClientId
+  }&response_type=code&redirect_uri=http://localhost:${
+    process.env.PORT || 3000
+  }/exchange_token&approval_prompt=force&scope=activity:read`;
 }
 
 export async function codeToToken(code: string): Promise<AuthTokenResponse> {
@@ -76,7 +57,7 @@ export async function codeToToken(code: string): Promise<AuthTokenResponse> {
    * Convert the code received from the Strava authentication code to a token.
    * @param {string} code The code received from authorizing access.
    */
-  const STRAVA_CLIENT = await stravaAuth();
+  const STRAVA_CLIENT = await readSecrets<StravaSecrets>("strava");
   const formData = new FormData();
   formData.append("client_id", STRAVA_CLIENT.ClientId.toString());
   formData.append("client_secret", STRAVA_CLIENT.ClientSecret);
@@ -95,7 +76,7 @@ export async function refreshToken(
    * Update the token using the current token.
    * @param {AuthTokenDetails} token The current token containing the refresh_token.
    */
-  const STRAVA_CLIENT = await stravaAuth();
+  const STRAVA_CLIENT = await readSecrets<StravaSecrets>("strava");
   const formData = new FormData();
   formData.append("client_id", STRAVA_CLIENT.ClientId.toString());
   formData.append("client_secret", STRAVA_CLIENT.ClientSecret);

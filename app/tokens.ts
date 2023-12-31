@@ -1,6 +1,6 @@
 "use client";
 
-import { refreshToken } from "./strava-service/tokens";
+import { refreshToken } from "../strava-service/authorization";
 
 const STORAGE_KEY = "stravaAuth";
 

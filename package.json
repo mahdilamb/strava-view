@@ -9,14 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@googlemaps/polyline-codec": "^1.0.28",
     "colorbrewer": "^1.5.6",
+    "filenamify": "^6.0.0",
     "idb": "^8.0.0",
     "leaflet": "^1.9.4",
+    "leaflet-geonames": "^0.4.9",
     "next": "14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-leaflet": "^4.2.1"
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-leaflet": "^4.2.1",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@types/colorbrewer": "^1.0.32",

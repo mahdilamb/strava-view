@@ -6,7 +6,7 @@ import {
   latLngBounds,
 } from "leaflet";
 import { ActivityTarget } from "./targets";
-import { SummaryActivityDecoded } from "@/app/strava-service/service";
+import { SummaryActivityDecoded } from "@/strava-service/service";
 import { CustomControl } from "./control";
 import { useMap, Polyline, TileLayer, Rectangle } from "react-leaflet";
 import { sleep } from "@/app/animations";

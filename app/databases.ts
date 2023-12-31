@@ -5,10 +5,10 @@ import {
   Configuration,
   SportType,
   SummaryActivity,
-} from "./strava";
-import { AuthTokenDetails } from "./strava-service/tokens";
+} from "@/strava";
+import { AuthTokenDetails } from "../strava-service/authorization";
 import { deleteToken } from "./tokens";
-import { decodeSummaryActivity } from "./strava-service/service";
+import { decodeSummaryActivity } from "../strava-service/service";
 
 type Synchronization = {
   startKey: number;
