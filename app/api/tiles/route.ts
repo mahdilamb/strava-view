@@ -1,13 +1,15 @@
-import type { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import filenamify from "filenamify";
 import path from "path";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { redirect } from "next/navigation";
 
 const CACHE_LOCATION = ".tile-cache";
+if (!existsSync(CACHE_LOCATION)) {
+  mkdirSync(CACHE_LOCATION);
+}
 
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   const searchParams = new URL(request.url as string).searchParams;
   const url = searchParams.get("url") as string;
   const useCache = searchParams.get("useCache") === "true";

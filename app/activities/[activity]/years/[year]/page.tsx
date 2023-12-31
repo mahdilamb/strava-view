@@ -32,18 +32,26 @@ export default function Year() {
     if (auth !== null) {
       const getDB = async () => {
         const allActivities = Object.keys(ActivityType);
-        const activity = allActivities.find(
-          (activity) => (params?.activity as string) === activity.toLowerCase(),
-        );
-        if (activity === undefined) {
-          return notFound();
+        var activity: ActivityType | undefined;
+        if ((params?.activity as string | undefined) === "-") {
+          activity = undefined;
+        } else {
+          activity = allActivities.find(
+            (activity) =>
+              (params?.activity as string) === activity.toLowerCase(),
+          ) as ActivityType;
+          if (activity === undefined) {
+            return notFound();
+          }
         }
         const db = await syncDB(await initDB(), auth);
         setActivities(
           await getActivities(
             db,
             activity as ActivityType,
-            yearToSpan(parseInt(params?.year as string)),
+            params?.year === "-"
+              ? undefined
+              : yearToSpan(parseInt(params?.year as string)),
           ),
         );
       };

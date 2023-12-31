@@ -17,7 +17,7 @@ serve:
 docker-build:
 	docker build -t strava-replay .
 docker-run:
-	docker run -p 80:3000 -e SOPS_AGE_KEY=$(shell cat ~/.config/sops/age/keys.txt | grep -o "^AGE.*") strava-replay
+	@docker run -p 80:3000 -e SOPS_AGE_KEY=$(shell cat ~/.config/sops/age/keys.txt | grep -o "^AGE.*") strava-replay
 
 docker: docker-build docker-run
 help: # Show help for each of the Makefile recipes.
