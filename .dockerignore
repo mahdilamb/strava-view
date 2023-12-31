@@ -7,3 +7,4 @@ README.md
 .git
 /*.auth.json
 Makefile
+.tile-cache/
