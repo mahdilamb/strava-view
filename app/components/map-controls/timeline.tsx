@@ -16,8 +16,8 @@ import { TracedPolyline } from "./traced-polyline";
 import * as mapLayers from "@/app/map-layers";
 import { CacheableTileLayer } from "./cachable-tile-layer";
 
-const DRAW_DURATION_MS = 100;
-const PAN_DURATION_MS = 1000;
+const DRAW_DURATION_MS = 10;
+const PAN_DURATION_MS = 100;
 
 export const Timeline = (props: {
   activities: SummaryActivityDecoded[];
