@@ -50,10 +50,10 @@ export class RoutesApi extends runtime.BaseAPI {
     requestParameters: GetRouteAsGPXRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<void>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getRouteAsGPX.",
+        'Required parameter "id" was null or undefined when calling getRouteAsGPX().',
       );
     }
 
@@ -73,7 +73,7 @@ export class RoutesApi extends runtime.BaseAPI {
       {
         path: `/routes/{id}/export_gpx`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -104,10 +104,10 @@ export class RoutesApi extends runtime.BaseAPI {
     requestParameters: GetRouteAsTCXRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<void>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getRouteAsTCX.",
+        'Required parameter "id" was null or undefined when calling getRouteAsTCX().',
       );
     }
 
@@ -127,7 +127,7 @@ export class RoutesApi extends runtime.BaseAPI {
       {
         path: `/routes/{id}/export_tcx`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -158,10 +158,10 @@ export class RoutesApi extends runtime.BaseAPI {
     requestParameters: GetRouteByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Route>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getRouteById.",
+        'Required parameter "id" was null or undefined when calling getRouteById().',
       );
     }
 
@@ -181,7 +181,7 @@ export class RoutesApi extends runtime.BaseAPI {
       {
         path: `/routes/{id}`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -220,12 +220,12 @@ export class RoutesApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<Array<Route>>> {
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};

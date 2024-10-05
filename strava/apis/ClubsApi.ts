@@ -75,21 +75,21 @@ export class ClubsApi extends runtime.BaseAPI {
     requestParameters: GetClubActivitiesByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<ClubActivity>>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getClubActivitiesById.",
+        'Required parameter "id" was null or undefined when calling getClubActivitiesById().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -106,7 +106,7 @@ export class ClubsApi extends runtime.BaseAPI {
       {
         path: `/clubs/{id}/activities`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -143,21 +143,21 @@ export class ClubsApi extends runtime.BaseAPI {
     requestParameters: GetClubAdminsByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<SummaryAthlete>>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getClubAdminsById.",
+        'Required parameter "id" was null or undefined when calling getClubAdminsById().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -174,7 +174,7 @@ export class ClubsApi extends runtime.BaseAPI {
       {
         path: `/clubs/{id}/admins`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -211,10 +211,10 @@ export class ClubsApi extends runtime.BaseAPI {
     requestParameters: GetClubByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedClub>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getClubById.",
+        'Required parameter "id" was null or undefined when calling getClubById().',
       );
     }
 
@@ -234,7 +234,7 @@ export class ClubsApi extends runtime.BaseAPI {
       {
         path: `/clubs/{id}`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -271,21 +271,21 @@ export class ClubsApi extends runtime.BaseAPI {
     requestParameters: GetClubMembersByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<ClubAthlete>>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getClubMembersById.",
+        'Required parameter "id" was null or undefined when calling getClubMembersById().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -302,7 +302,7 @@ export class ClubsApi extends runtime.BaseAPI {
       {
         path: `/clubs/{id}/members`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -341,12 +341,12 @@ export class ClubsApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<Array<SummaryClub>>> {
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};

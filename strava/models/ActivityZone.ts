@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { TimedZoneRange } from "./TimedZoneRange";
 import {
   TimedZoneRangeFromJSON,
   TimedZoneRangeFromJSONTyped,
   TimedZoneRangeToJSON,
+  TimedZoneRangeToJSONTyped,
 } from "./TimedZoneRange";
 
 /**
@@ -83,10 +84,8 @@ export type ActivityZoneTypeEnum =
 /**
  * Check if a given object implements the ActivityZone interface.
  */
-export function instanceOfActivityZone(value: object): boolean {
-  let isInstance = true;
-
-  return isInstance;
+export function instanceOfActivityZone(value: object): value is ActivityZone {
+  return true;
 }
 
 export function ActivityZoneFromJSON(json: any): ActivityZone {
@@ -97,45 +96,51 @@ export function ActivityZoneFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
 ): ActivityZone {
-  if (json === undefined || json === null) {
+  if (json == null) {
     return json;
   }
   return {
-    score: !exists(json, "score") ? undefined : json["score"],
-    distributionBuckets: !exists(json, "distribution_buckets")
-      ? undefined
-      : (json["distribution_buckets"] as Array<any>).map(
-          TimedZoneRangeFromJSON,
-        ),
-    type: !exists(json, "type") ? undefined : json["type"],
-    sensorBased: !exists(json, "sensor_based")
-      ? undefined
-      : json["sensor_based"],
-    points: !exists(json, "points") ? undefined : json["points"],
-    customZones: !exists(json, "custom_zones")
-      ? undefined
-      : json["custom_zones"],
-    max: !exists(json, "max") ? undefined : json["max"],
+    score: json["score"] == null ? undefined : json["score"],
+    distributionBuckets:
+      json["distribution_buckets"] == null
+        ? undefined
+        : (json["distribution_buckets"] as Array<any>).map(
+            TimedZoneRangeFromJSON,
+          ),
+    type: json["type"] == null ? undefined : json["type"],
+    sensorBased:
+      json["sensor_based"] == null ? undefined : json["sensor_based"],
+    points: json["points"] == null ? undefined : json["points"],
+    customZones:
+      json["custom_zones"] == null ? undefined : json["custom_zones"],
+    max: json["max"] == null ? undefined : json["max"],
   };
 }
 
-export function ActivityZoneToJSON(value?: ActivityZone | null): any {
-  if (value === undefined) {
-    return undefined;
+export function ActivityZoneToJSON(json: any): ActivityZone {
+  return ActivityZoneToJSONTyped(json, false);
+}
+
+export function ActivityZoneToJSONTyped(
+  value?: ActivityZone | null,
+  ignoreDiscriminator: boolean = false,
+): any {
+  if (value == null) {
+    return value;
   }
-  if (value === null) {
-    return null;
-  }
+
   return {
-    score: value.score,
+    score: value["score"],
     distribution_buckets:
-      value.distributionBuckets === undefined
+      value["distributionBuckets"] == null
         ? undefined
-        : (value.distributionBuckets as Array<any>).map(TimedZoneRangeToJSON),
-    type: value.type,
-    sensor_based: value.sensorBased,
-    points: value.points,
-    custom_zones: value.customZones,
-    max: value.max,
+        : (value["distributionBuckets"] as Array<any>).map(
+            TimedZoneRangeToJSON,
+          ),
+    type: value["type"],
+    sensor_based: value["sensorBased"],
+    points: value["points"],
+    custom_zones: value["customZones"],
+    max: value["max"],
   };
 }

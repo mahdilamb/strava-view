@@ -57,6 +57,17 @@ export const ActivityType = {
 } as const;
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType];
 
+export function instanceOfActivityType(value: any): boolean {
+  for (const key in ActivityType) {
+    if (Object.prototype.hasOwnProperty.call(ActivityType, key)) {
+      if (ActivityType[key as keyof typeof ActivityType] === value) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 export function ActivityTypeFromJSON(json: any): ActivityType {
   return ActivityTypeFromJSONTyped(json, false);
 }
@@ -70,4 +81,11 @@ export function ActivityTypeFromJSONTyped(
 
 export function ActivityTypeToJSON(value?: ActivityType | null): any {
   return value as any;
+}
+
+export function ActivityTypeToJSONTyped(
+  value: any,
+  ignoreDiscriminator: boolean,
+): ActivityType {
+  return value as ActivityType;
 }

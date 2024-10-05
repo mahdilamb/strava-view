@@ -75,32 +75,32 @@ export class UploadsApi extends runtime.BaseAPI {
       formParams = new URLSearchParams();
     }
 
-    if (requestParameters.file !== undefined) {
-      formParams.append("file", requestParameters.file as any);
+    if (requestParameters["file"] != null) {
+      formParams.append("file", requestParameters["file"] as any);
     }
 
-    if (requestParameters.name !== undefined) {
-      formParams.append("name", requestParameters.name as any);
+    if (requestParameters["name"] != null) {
+      formParams.append("name", requestParameters["name"] as any);
     }
 
-    if (requestParameters.description !== undefined) {
-      formParams.append("description", requestParameters.description as any);
+    if (requestParameters["description"] != null) {
+      formParams.append("description", requestParameters["description"] as any);
     }
 
-    if (requestParameters.trainer !== undefined) {
-      formParams.append("trainer", requestParameters.trainer as any);
+    if (requestParameters["trainer"] != null) {
+      formParams.append("trainer", requestParameters["trainer"] as any);
     }
 
-    if (requestParameters.commute !== undefined) {
-      formParams.append("commute", requestParameters.commute as any);
+    if (requestParameters["commute"] != null) {
+      formParams.append("commute", requestParameters["commute"] as any);
     }
 
-    if (requestParameters.dataType !== undefined) {
-      formParams.append("data_type", requestParameters.dataType as any);
+    if (requestParameters["dataType"] != null) {
+      formParams.append("data_type", requestParameters["dataType"] as any);
     }
 
-    if (requestParameters.externalId !== undefined) {
-      formParams.append("external_id", requestParameters.externalId as any);
+    if (requestParameters["externalId"] != null) {
+      formParams.append("external_id", requestParameters["externalId"] as any);
     }
 
     const response = await this.request(
@@ -142,13 +142,10 @@ export class UploadsApi extends runtime.BaseAPI {
     requestParameters: GetUploadByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Upload>> {
-    if (
-      requestParameters.uploadId === null ||
-      requestParameters.uploadId === undefined
-    ) {
+    if (requestParameters["uploadId"] == null) {
       throw new runtime.RequiredError(
         "uploadId",
-        "Required parameter requestParameters.uploadId was null or undefined when calling getUploadById.",
+        'Required parameter "uploadId" was null or undefined when calling getUploadById().',
       );
     }
 
@@ -168,7 +165,7 @@ export class UploadsApi extends runtime.BaseAPI {
       {
         path: `/uploads/{uploadId}`.replace(
           `{${"uploadId"}}`,
-          encodeURIComponent(String(requestParameters.uploadId)),
+          encodeURIComponent(String(requestParameters["uploadId"])),
         ),
         method: "GET",
         headers: headerParameters,

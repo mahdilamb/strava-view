@@ -70,6 +70,17 @@ export const SportType = {
 } as const;
 export type SportType = (typeof SportType)[keyof typeof SportType];
 
+export function instanceOfSportType(value: any): boolean {
+  for (const key in SportType) {
+    if (Object.prototype.hasOwnProperty.call(SportType, key)) {
+      if (SportType[key as keyof typeof SportType] === value) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 export function SportTypeFromJSON(json: any): SportType {
   return SportTypeFromJSONTyped(json, false);
 }
@@ -83,4 +94,11 @@ export function SportTypeFromJSONTyped(
 
 export function SportTypeToJSON(value?: SportType | null): any {
   return value as any;
+}
+
+export function SportTypeToJSONTyped(
+  value: any,
+  ignoreDiscriminator: boolean,
+): SportType {
+  return value as SportType;
 }

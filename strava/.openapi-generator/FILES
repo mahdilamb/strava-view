@@ -62,6 +62,7 @@ models/TimeStream.ts
 models/TimedZoneRange.ts
 models/UpdatableActivity.ts
 models/Upload.ts
+models/Waypoint.ts
 models/ZoneRange.ts
 models/Zones.ts
 models/index.ts

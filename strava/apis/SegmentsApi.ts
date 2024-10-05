@@ -63,34 +63,31 @@ export class SegmentsApi extends runtime.BaseAPI {
     requestParameters: ExploreSegmentsRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<ExplorerResponse>> {
-    if (
-      requestParameters.bounds === null ||
-      requestParameters.bounds === undefined
-    ) {
+    if (requestParameters["bounds"] == null) {
       throw new runtime.RequiredError(
         "bounds",
-        "Required parameter requestParameters.bounds was null or undefined when calling exploreSegments.",
+        'Required parameter "bounds" was null or undefined when calling exploreSegments().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.bounds) {
-      queryParameters["bounds"] = requestParameters.bounds.join(
+    if (requestParameters["bounds"] != null) {
+      queryParameters["bounds"] = requestParameters["bounds"]!.join(
         runtime.COLLECTION_FORMATS["csv"],
       );
     }
 
-    if (requestParameters.activityType !== undefined) {
-      queryParameters["activity_type"] = requestParameters.activityType;
+    if (requestParameters["activityType"] != null) {
+      queryParameters["activity_type"] = requestParameters["activityType"];
     }
 
-    if (requestParameters.minCat !== undefined) {
-      queryParameters["min_cat"] = requestParameters.minCat;
+    if (requestParameters["minCat"] != null) {
+      queryParameters["min_cat"] = requestParameters["minCat"];
     }
 
-    if (requestParameters.maxCat !== undefined) {
-      queryParameters["max_cat"] = requestParameters.maxCat;
+    if (requestParameters["maxCat"] != null) {
+      queryParameters["max_cat"] = requestParameters["maxCat"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -143,12 +140,12 @@ export class SegmentsApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<Array<SummarySegment>>> {
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -199,10 +196,10 @@ export class SegmentsApi extends runtime.BaseAPI {
     requestParameters: GetSegmentByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedSegment>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getSegmentById.",
+        'Required parameter "id" was null or undefined when calling getSegmentById().',
       );
     }
 
@@ -222,7 +219,7 @@ export class SegmentsApi extends runtime.BaseAPI {
       {
         path: `/segments/{id}`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -259,20 +256,17 @@ export class SegmentsApi extends runtime.BaseAPI {
     requestParameters: StarSegmentRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedSegment>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling starSegment.",
+        'Required parameter "id" was null or undefined when calling starSegment().',
       );
     }
 
-    if (
-      requestParameters.starred === null ||
-      requestParameters.starred === undefined
-    ) {
+    if (requestParameters["starred"] == null) {
       throw new runtime.RequiredError(
         "starred",
-        "Required parameter requestParameters.starred was null or undefined when calling starSegment.",
+        'Required parameter "starred" was null or undefined when calling starSegment().',
       );
     }
 
@@ -302,15 +296,15 @@ export class SegmentsApi extends runtime.BaseAPI {
       formParams = new URLSearchParams();
     }
 
-    if (requestParameters.starred !== undefined) {
-      formParams.append("starred", requestParameters.starred as any);
+    if (requestParameters["starred"] != null) {
+      formParams.append("starred", requestParameters["starred"] as any);
     }
 
     const response = await this.request(
       {
         path: `/segments/{id}/starred`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "PUT",
         headers: headerParameters,

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -69,10 +69,10 @@ export type SmoothGradeStreamSeriesTypeEnum =
 /**
  * Check if a given object implements the SmoothGradeStream interface.
  */
-export function instanceOfSmoothGradeStream(value: object): boolean {
-  let isInstance = true;
-
-  return isInstance;
+export function instanceOfSmoothGradeStream(
+  value: object,
+): value is SmoothGradeStream {
+  return true;
 }
 
 export function SmoothGradeStreamFromJSON(json: any): SmoothGradeStream {
@@ -83,30 +83,34 @@ export function SmoothGradeStreamFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
 ): SmoothGradeStream {
-  if (json === undefined || json === null) {
+  if (json == null) {
     return json;
   }
   return {
-    originalSize: !exists(json, "original_size")
-      ? undefined
-      : json["original_size"],
-    resolution: !exists(json, "resolution") ? undefined : json["resolution"],
-    seriesType: !exists(json, "series_type") ? undefined : json["series_type"],
-    data: !exists(json, "data") ? undefined : json["data"],
+    originalSize:
+      json["original_size"] == null ? undefined : json["original_size"],
+    resolution: json["resolution"] == null ? undefined : json["resolution"],
+    seriesType: json["series_type"] == null ? undefined : json["series_type"],
+    data: json["data"] == null ? undefined : json["data"],
   };
 }
 
-export function SmoothGradeStreamToJSON(value?: SmoothGradeStream | null): any {
-  if (value === undefined) {
-    return undefined;
+export function SmoothGradeStreamToJSON(json: any): SmoothGradeStream {
+  return SmoothGradeStreamToJSONTyped(json, false);
+}
+
+export function SmoothGradeStreamToJSONTyped(
+  value?: SmoothGradeStream | null,
+  ignoreDiscriminator: boolean = false,
+): any {
+  if (value == null) {
+    return value;
   }
-  if (value === null) {
-    return null;
-  }
+
   return {
-    original_size: value.originalSize,
-    resolution: value.resolution,
-    series_type: value.seriesType,
-    data: value.data,
+    original_size: value["originalSize"],
+    resolution: value["resolution"],
+    series_type: value["seriesType"],
+    data: value["data"],
   };
 }

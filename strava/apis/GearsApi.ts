@@ -37,10 +37,10 @@ export class GearsApi extends runtime.BaseAPI {
     requestParameters: GetGearByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedGear>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getGearById.",
+        'Required parameter "id" was null or undefined when calling getGearById().',
       );
     }
 
@@ -60,7 +60,7 @@ export class GearsApi extends runtime.BaseAPI {
       {
         path: `/gear/{id}`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,

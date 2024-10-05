@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -118,10 +118,10 @@ export type SummaryAthleteSexEnum =
 /**
  * Check if a given object implements the SummaryAthlete interface.
  */
-export function instanceOfSummaryAthlete(value: object): boolean {
-  let isInstance = true;
-
-  return isInstance;
+export function instanceOfSummaryAthlete(
+  value: object,
+): value is SummaryAthlete {
+  return true;
 }
 
 export function SummaryAthleteFromJSON(json: any): SummaryAthlete {
@@ -132,58 +132,59 @@ export function SummaryAthleteFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
 ): SummaryAthlete {
-  if (json === undefined || json === null) {
+  if (json == null) {
     return json;
   }
   return {
-    id: !exists(json, "id") ? undefined : json["id"],
-    resourceState: !exists(json, "resource_state")
-      ? undefined
-      : json["resource_state"],
-    firstname: !exists(json, "firstname") ? undefined : json["firstname"],
-    lastname: !exists(json, "lastname") ? undefined : json["lastname"],
-    profileMedium: !exists(json, "profile_medium")
-      ? undefined
-      : json["profile_medium"],
-    profile: !exists(json, "profile") ? undefined : json["profile"],
-    city: !exists(json, "city") ? undefined : json["city"],
-    state: !exists(json, "state") ? undefined : json["state"],
-    country: !exists(json, "country") ? undefined : json["country"],
-    sex: !exists(json, "sex") ? undefined : json["sex"],
-    premium: !exists(json, "premium") ? undefined : json["premium"],
-    summit: !exists(json, "summit") ? undefined : json["summit"],
-    createdAt: !exists(json, "created_at")
-      ? undefined
-      : new Date(json["created_at"]),
-    updatedAt: !exists(json, "updated_at")
-      ? undefined
-      : new Date(json["updated_at"]),
+    id: json["id"] == null ? undefined : json["id"],
+    resourceState:
+      json["resource_state"] == null ? undefined : json["resource_state"],
+    firstname: json["firstname"] == null ? undefined : json["firstname"],
+    lastname: json["lastname"] == null ? undefined : json["lastname"],
+    profileMedium:
+      json["profile_medium"] == null ? undefined : json["profile_medium"],
+    profile: json["profile"] == null ? undefined : json["profile"],
+    city: json["city"] == null ? undefined : json["city"],
+    state: json["state"] == null ? undefined : json["state"],
+    country: json["country"] == null ? undefined : json["country"],
+    sex: json["sex"] == null ? undefined : json["sex"],
+    premium: json["premium"] == null ? undefined : json["premium"],
+    summit: json["summit"] == null ? undefined : json["summit"],
+    createdAt:
+      json["created_at"] == null ? undefined : new Date(json["created_at"]),
+    updatedAt:
+      json["updated_at"] == null ? undefined : new Date(json["updated_at"]),
   };
 }
 
-export function SummaryAthleteToJSON(value?: SummaryAthlete | null): any {
-  if (value === undefined) {
-    return undefined;
+export function SummaryAthleteToJSON(json: any): SummaryAthlete {
+  return SummaryAthleteToJSONTyped(json, false);
+}
+
+export function SummaryAthleteToJSONTyped(
+  value?: SummaryAthlete | null,
+  ignoreDiscriminator: boolean = false,
+): any {
+  if (value == null) {
+    return value;
   }
-  if (value === null) {
-    return null;
-  }
+
   return {
-    id: value.id,
-    resource_state: value.resourceState,
-    firstname: value.firstname,
-    lastname: value.lastname,
-    profile_medium: value.profileMedium,
-    profile: value.profile,
-    city: value.city,
-    state: value.state,
-    country: value.country,
-    sex: value.sex,
-    premium: value.premium,
-    summit: value.summit,
+    id: value["id"],
+    resource_state: value["resourceState"],
+    firstname: value["firstname"],
+    lastname: value["lastname"],
+    profile_medium: value["profileMedium"],
+    profile: value["profile"],
+    city: value["city"],
+    state: value["state"],
+    country: value["country"],
+    sex: value["sex"],
+    premium: value["premium"],
+    summit: value["summit"],
     created_at:
-      value.createdAt === undefined ? undefined : value.createdAt.toISOString(),
+      value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
     updated_at:
-      value.updatedAt === undefined ? undefined : value.updatedAt.toISOString(),
+      value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
   };
 }

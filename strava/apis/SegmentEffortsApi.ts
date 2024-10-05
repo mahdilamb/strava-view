@@ -44,36 +44,33 @@ export class SegmentEffortsApi extends runtime.BaseAPI {
     requestParameters: GetEffortsBySegmentIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<DetailedSegmentEffort>>> {
-    if (
-      requestParameters.segmentId === null ||
-      requestParameters.segmentId === undefined
-    ) {
+    if (requestParameters["segmentId"] == null) {
       throw new runtime.RequiredError(
         "segmentId",
-        "Required parameter requestParameters.segmentId was null or undefined when calling getEffortsBySegmentId.",
+        'Required parameter "segmentId" was null or undefined when calling getEffortsBySegmentId().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.segmentId !== undefined) {
-      queryParameters["segment_id"] = requestParameters.segmentId;
+    if (requestParameters["segmentId"] != null) {
+      queryParameters["segment_id"] = requestParameters["segmentId"];
     }
 
-    if (requestParameters.startDateLocal !== undefined) {
+    if (requestParameters["startDateLocal"] != null) {
       queryParameters["start_date_local"] = (
-        requestParameters.startDateLocal as any
+        requestParameters["startDateLocal"] as any
       ).toISOString();
     }
 
-    if (requestParameters.endDateLocal !== undefined) {
+    if (requestParameters["endDateLocal"] != null) {
       queryParameters["end_date_local"] = (
-        requestParameters.endDateLocal as any
+        requestParameters["endDateLocal"] as any
       ).toISOString();
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -124,10 +121,10 @@ export class SegmentEffortsApi extends runtime.BaseAPI {
     requestParameters: GetSegmentEffortByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedSegmentEffort>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getSegmentEffortById.",
+        'Required parameter "id" was null or undefined when calling getSegmentEffortById().',
       );
     }
 
@@ -147,7 +144,7 @@ export class SegmentEffortsApi extends runtime.BaseAPI {
       {
         path: `/segment_efforts/{id}`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,

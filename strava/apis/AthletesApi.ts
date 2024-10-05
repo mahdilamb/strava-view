@@ -140,10 +140,10 @@ export class AthletesApi extends runtime.BaseAPI {
     requestParameters: GetStatsRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<ActivityStats>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getStats.",
+        'Required parameter "id" was null or undefined when calling getStats().',
       );
     }
 
@@ -163,7 +163,7 @@ export class AthletesApi extends runtime.BaseAPI {
       {
         path: `/athletes/{id}/stats`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -197,13 +197,10 @@ export class AthletesApi extends runtime.BaseAPI {
     requestParameters: UpdateLoggedInAthleteRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedAthlete>> {
-    if (
-      requestParameters.weight === null ||
-      requestParameters.weight === undefined
-    ) {
+    if (requestParameters["weight"] == null) {
       throw new runtime.RequiredError(
         "weight",
-        "Required parameter requestParameters.weight was null or undefined when calling updateLoggedInAthlete.",
+        'Required parameter "weight" was null or undefined when calling updateLoggedInAthlete().',
       );
     }
 
@@ -223,7 +220,7 @@ export class AthletesApi extends runtime.BaseAPI {
       {
         path: `/athlete`.replace(
           `{${"weight"}}`,
-          encodeURIComponent(String(requestParameters.weight)),
+          encodeURIComponent(String(requestParameters["weight"])),
         ),
         method: "PUT",
         headers: headerParameters,

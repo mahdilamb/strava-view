@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { ExplorerSegment } from "./ExplorerSegment";
 import {
   ExplorerSegmentFromJSON,
   ExplorerSegmentFromJSONTyped,
   ExplorerSegmentToJSON,
+  ExplorerSegmentToJSONTyped,
 } from "./ExplorerSegment";
 
 /**
@@ -37,10 +38,10 @@ export interface ExplorerResponse {
 /**
  * Check if a given object implements the ExplorerResponse interface.
  */
-export function instanceOfExplorerResponse(value: object): boolean {
-  let isInstance = true;
-
-  return isInstance;
+export function instanceOfExplorerResponse(
+  value: object,
+): value is ExplorerResponse {
+  return true;
 }
 
 export function ExplorerResponseFromJSON(json: any): ExplorerResponse {
@@ -51,27 +52,33 @@ export function ExplorerResponseFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
 ): ExplorerResponse {
-  if (json === undefined || json === null) {
+  if (json == null) {
     return json;
   }
   return {
-    segments: !exists(json, "segments")
-      ? undefined
-      : (json["segments"] as Array<any>).map(ExplorerSegmentFromJSON),
+    segments:
+      json["segments"] == null
+        ? undefined
+        : (json["segments"] as Array<any>).map(ExplorerSegmentFromJSON),
   };
 }
 
-export function ExplorerResponseToJSON(value?: ExplorerResponse | null): any {
-  if (value === undefined) {
-    return undefined;
+export function ExplorerResponseToJSON(json: any): ExplorerResponse {
+  return ExplorerResponseToJSONTyped(json, false);
+}
+
+export function ExplorerResponseToJSONTyped(
+  value?: ExplorerResponse | null,
+  ignoreDiscriminator: boolean = false,
+): any {
+  if (value == null) {
+    return value;
   }
-  if (value === null) {
-    return null;
-  }
+
   return {
     segments:
-      value.segments === undefined
+      value["segments"] == null
         ? undefined
-        : (value.segments as Array<any>).map(ExplorerSegmentToJSON),
+        : (value["segments"] as Array<any>).map(ExplorerSegmentToJSON),
   };
 }

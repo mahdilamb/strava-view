@@ -52,5 +52,6 @@ export * from "./TimeStream";
 export * from "./TimedZoneRange";
 export * from "./UpdatableActivity";
 export * from "./Upload";
+export * from "./Waypoint";
 export * from "./ZoneRange";
 export * from "./Zones";

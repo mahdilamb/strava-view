@@ -105,43 +105,31 @@ export class ActivitiesApi extends runtime.BaseAPI {
     requestParameters: CreateActivityRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedActivity>> {
-    if (
-      requestParameters.name === null ||
-      requestParameters.name === undefined
-    ) {
+    if (requestParameters["name"] == null) {
       throw new runtime.RequiredError(
         "name",
-        "Required parameter requestParameters.name was null or undefined when calling createActivity.",
+        'Required parameter "name" was null or undefined when calling createActivity().',
       );
     }
 
-    if (
-      requestParameters.sportType === null ||
-      requestParameters.sportType === undefined
-    ) {
+    if (requestParameters["sportType"] == null) {
       throw new runtime.RequiredError(
         "sportType",
-        "Required parameter requestParameters.sportType was null or undefined when calling createActivity.",
+        'Required parameter "sportType" was null or undefined when calling createActivity().',
       );
     }
 
-    if (
-      requestParameters.startDateLocal === null ||
-      requestParameters.startDateLocal === undefined
-    ) {
+    if (requestParameters["startDateLocal"] == null) {
       throw new runtime.RequiredError(
         "startDateLocal",
-        "Required parameter requestParameters.startDateLocal was null or undefined when calling createActivity.",
+        'Required parameter "startDateLocal" was null or undefined when calling createActivity().',
       );
     }
 
-    if (
-      requestParameters.elapsedTime === null ||
-      requestParameters.elapsedTime === undefined
-    ) {
+    if (requestParameters["elapsedTime"] == null) {
       throw new runtime.RequiredError(
         "elapsedTime",
-        "Required parameter requestParameters.elapsedTime was null or undefined when calling createActivity.",
+        'Required parameter "elapsedTime" was null or undefined when calling createActivity().',
       );
     }
 
@@ -171,43 +159,46 @@ export class ActivitiesApi extends runtime.BaseAPI {
       formParams = new URLSearchParams();
     }
 
-    if (requestParameters.name !== undefined) {
-      formParams.append("name", requestParameters.name as any);
+    if (requestParameters["name"] != null) {
+      formParams.append("name", requestParameters["name"] as any);
     }
 
-    if (requestParameters.type !== undefined) {
-      formParams.append("type", requestParameters.type as any);
+    if (requestParameters["type"] != null) {
+      formParams.append("type", requestParameters["type"] as any);
     }
 
-    if (requestParameters.sportType !== undefined) {
-      formParams.append("sport_type", requestParameters.sportType as any);
+    if (requestParameters["sportType"] != null) {
+      formParams.append("sport_type", requestParameters["sportType"] as any);
     }
 
-    if (requestParameters.startDateLocal !== undefined) {
+    if (requestParameters["startDateLocal"] != null) {
       formParams.append(
         "start_date_local",
-        requestParameters.startDateLocal as any,
+        (requestParameters["startDateLocal"] as any).toISOString(),
       );
     }
 
-    if (requestParameters.elapsedTime !== undefined) {
-      formParams.append("elapsed_time", requestParameters.elapsedTime as any);
+    if (requestParameters["elapsedTime"] != null) {
+      formParams.append(
+        "elapsed_time",
+        requestParameters["elapsedTime"] as any,
+      );
     }
 
-    if (requestParameters.description !== undefined) {
-      formParams.append("description", requestParameters.description as any);
+    if (requestParameters["description"] != null) {
+      formParams.append("description", requestParameters["description"] as any);
     }
 
-    if (requestParameters.distance !== undefined) {
-      formParams.append("distance", requestParameters.distance as any);
+    if (requestParameters["distance"] != null) {
+      formParams.append("distance", requestParameters["distance"] as any);
     }
 
-    if (requestParameters.trainer !== undefined) {
-      formParams.append("trainer", requestParameters.trainer as any);
+    if (requestParameters["trainer"] != null) {
+      formParams.append("trainer", requestParameters["trainer"] as any);
     }
 
-    if (requestParameters.commute !== undefined) {
-      formParams.append("commute", requestParameters.commute as any);
+    if (requestParameters["commute"] != null) {
+      formParams.append("commute", requestParameters["commute"] as any);
     }
 
     const response = await this.request(
@@ -249,18 +240,18 @@ export class ActivitiesApi extends runtime.BaseAPI {
     requestParameters: GetActivityByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedActivity>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getActivityById.",
+        'Required parameter "id" was null or undefined when calling getActivityById().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.includeAllEfforts !== undefined) {
+    if (requestParameters["includeAllEfforts"] != null) {
       queryParameters["include_all_efforts"] =
-        requestParameters.includeAllEfforts;
+        requestParameters["includeAllEfforts"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -277,7 +268,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
       {
         path: `/activities/{id}`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -314,29 +305,29 @@ export class ActivitiesApi extends runtime.BaseAPI {
     requestParameters: GetCommentsByActivityIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<Comment>>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getCommentsByActivityId.",
+        'Required parameter "id" was null or undefined when calling getCommentsByActivityId().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
-    if (requestParameters.pageSize !== undefined) {
-      queryParameters["page_size"] = requestParameters.pageSize;
+    if (requestParameters["pageSize"] != null) {
+      queryParameters["page_size"] = requestParameters["pageSize"];
     }
 
-    if (requestParameters.afterCursor !== undefined) {
-      queryParameters["after_cursor"] = requestParameters.afterCursor;
+    if (requestParameters["afterCursor"] != null) {
+      queryParameters["after_cursor"] = requestParameters["afterCursor"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -353,7 +344,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
       {
         path: `/activities/{id}/comments`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -390,21 +381,21 @@ export class ActivitiesApi extends runtime.BaseAPI {
     requestParameters: GetKudoersByActivityIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<SummaryAthlete>>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getKudoersByActivityId.",
+        'Required parameter "id" was null or undefined when calling getKudoersByActivityId().',
       );
     }
 
     const queryParameters: any = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -421,7 +412,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
       {
         path: `/activities/{id}/kudos`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -458,10 +449,10 @@ export class ActivitiesApi extends runtime.BaseAPI {
     requestParameters: GetLapsByActivityIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<Lap>>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getLapsByActivityId.",
+        'Required parameter "id" was null or undefined when calling getLapsByActivityId().',
       );
     }
 
@@ -481,7 +472,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
       {
         path: `/activities/{id}/laps`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -520,20 +511,20 @@ export class ActivitiesApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<Array<SummaryActivity>>> {
     const queryParameters: any = {};
 
-    if (requestParameters.before !== undefined) {
-      queryParameters["before"] = requestParameters.before;
+    if (requestParameters["before"] != null) {
+      queryParameters["before"] = requestParameters["before"];
     }
 
-    if (requestParameters.after !== undefined) {
-      queryParameters["after"] = requestParameters.after;
+    if (requestParameters["after"] != null) {
+      queryParameters["after"] = requestParameters["after"];
     }
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    if (requestParameters["perPage"] != null) {
+      queryParameters["per_page"] = requestParameters["perPage"];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -584,10 +575,10 @@ export class ActivitiesApi extends runtime.BaseAPI {
     requestParameters: GetZonesByActivityIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<ActivityZone>>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling getZonesByActivityId.",
+        'Required parameter "id" was null or undefined when calling getZonesByActivityId().',
       );
     }
 
@@ -607,7 +598,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
       {
         path: `/activities/{id}/zones`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "GET",
         headers: headerParameters,
@@ -644,10 +635,10 @@ export class ActivitiesApi extends runtime.BaseAPI {
     requestParameters: UpdateActivityByIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<DetailedActivity>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+    if (requestParameters["id"] == null) {
       throw new runtime.RequiredError(
         "id",
-        "Required parameter requestParameters.id was null or undefined when calling updateActivityById.",
+        'Required parameter "id" was null or undefined when calling updateActivityById().',
       );
     }
 
@@ -669,12 +660,12 @@ export class ActivitiesApi extends runtime.BaseAPI {
       {
         path: `/activities/{id}`.replace(
           `{${"id"}}`,
-          encodeURIComponent(String(requestParameters.id)),
+          encodeURIComponent(String(requestParameters["id"])),
         ),
         method: "PUT",
         headers: headerParameters,
         query: queryParameters,
-        body: UpdatableActivityToJSON(requestParameters.body),
+        body: UpdatableActivityToJSON(requestParameters["body"]),
       },
       initOverrides,
     );
