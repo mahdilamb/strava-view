@@ -1,9 +1,8 @@
 
 import { readSecrets } from '@/lib/secrets';
 import type { StravaSecrets } from '@/lib/strava-service/authorization';
-import dynamic from 'next/dynamic';
 
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server';
 export const revalidate = 0;
 
 

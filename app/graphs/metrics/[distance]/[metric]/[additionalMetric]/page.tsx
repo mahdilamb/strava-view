@@ -1,10 +1,10 @@
 "use client"
 
 
+import { StravaActivity } from '@/lib/strava/sync';
 import { useContext } from 'react';
 import Plot from 'react-plotly.js';
 import { RunDataContext } from '../layout';
-import { StravaActivity } from '@/lib/strava/sync';
 
 
 export default function SpeedOverTime({ params }: { params: { additionalMetric: keyof StravaActivity } }) {

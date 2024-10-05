@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer } from "react-leaflet/MapContainer";
 import colorbrewer from "colorbrewer";
+import { useMemo, useState } from "react";
 
 import { SummaryActivityDecoded } from "../lib/strava-service/service";
 import { ActivityTarget } from "./map-controls/targets";

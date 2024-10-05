@@ -1,6 +1,6 @@
+import fs from "fs";
 import { readSecrets } from "../secrets";
 import { StravaSecrets } from "./authorization";
-import fs from "fs";
 
 export const subscribeToWebhook = async () => {
   let ngrokUrl = process.env.NEXT_NGROK_URL;

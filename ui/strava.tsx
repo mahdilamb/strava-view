@@ -1,14 +1,14 @@
 "use client"
 
-import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSync } from '@fortawesome/free-solid-svg-icons/faSync';
 import { useStrava } from '@/lib/strava';
-import { createContext, createRef, forwardRef, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { activityIds, getActivities } from '@/lib/strava/activity-summaries';
-import { StravaActivity, syncDetails } from '@/lib/strava/sync';
 import { detailsSynced } from '@/lib/strava/activities';
+import { activityIds, getActivities } from '@/lib/strava/activity-summaries';
+import { StravaActivity } from '@/lib/strava/sync';
 import { DetailedActivity } from '@/strava';
+import { faSync } from '@fortawesome/free-solid-svg-icons/faSync';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
+import { createContext, createRef, forwardRef, useEffect, useMemo, useState } from 'react';
 
 
 const ImageProps = {

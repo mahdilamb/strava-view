@@ -1,14 +1,13 @@
 "use client"
 
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation';
 
+import { sec2dt } from "@/lib/dates";
+import { DISTANCES } from "@/lib/distances";
+import { StravaActivity } from "@/lib/strava/sync";
 import { RunContext } from '@/ui/strava';
 import { PlotData } from 'plotly.js';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import Plot from 'react-plotly.js'
-import { sec2dt } from "@/lib/dates";
-import { StravaActivity } from "@/lib/strava/sync";
-import { DISTANCES } from "@/lib/distances";
+import { createContext, useContext, useMemo } from 'react';
 
 export const RunDataContext = createContext<{ runData: StravaActivity[], data: Partial<PlotData>[], layout: Partial<Plotly.Layout> }>(undefined as any)
 

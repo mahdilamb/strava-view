@@ -1,10 +1,10 @@
 "use client";
-import { ReactElement, createRef, forwardRef, useEffect, useRef, useState } from "react";
-import { useMap, useMapEvents } from "react-leaflet";
 import { CustomControl } from "@/ui/map-controls/control";
 import { ControlButton } from "@/ui/map-controls/control-button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons/faLocation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ReactElement, useEffect, useState } from "react";
+import { useMapEvents } from "react-leaflet";
 
 
 export const LocationControls = (props: {

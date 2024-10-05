@@ -1,4 +1,4 @@
-import { Control, Map } from "leaflet";
+import { Control } from "leaflet";
 import { ReactElement, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { useMap } from "react-leaflet";

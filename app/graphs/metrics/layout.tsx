@@ -1,11 +1,9 @@
 "use client"
 import { useStrava } from "@/lib/strava";
-import { detailsSynced, getActivityDetails } from "@/lib/strava/activities";
-import { activityIds, getActivities } from "@/lib/strava/activity-summaries";
+import { getActivities } from "@/lib/strava/activity-summaries";
 import { StravaActivity } from "@/lib/strava/sync";
-import { DetailedActivity } from "@/strava";
 import { RunContext, StravaButton } from "@/ui/strava";
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const { db, status } = useStrava();

@@ -1,8 +1,8 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { codeToToken } from "@/lib/strava-service/authorization";
 import { STORAGE_KEY as AUTH_STORAGE_KEY } from "@/lib/strava";
+import { codeToToken } from "@/lib/strava-service/authorization";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ExchangeToken() {
   const params = useSearchParams();
