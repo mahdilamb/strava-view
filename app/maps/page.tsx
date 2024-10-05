@@ -20,6 +20,7 @@ import { Polyline } from "react-leaflet"
 import DateRangePicker from 'rsuite/DateRangePicker';
 import { CustomControl } from "@/ui/map-controls/control";
 import { useStrava } from "@/lib/strava";
+import { addDays, endOfDay, startOfDay, subDays } from "rsuite/esm/internals/utils/date";
 export type SelectedDate = [Date, Date]
 
 const StravaOverlay = () => {
@@ -68,7 +69,26 @@ const StravaOverlay = () => {
         }}
         onShortcutClick={(range) => {
           setSelectedDate(range.value)
-        }} />
+        }}
+        ranges={[
+          {
+            label: 'today',
+            value: [startOfDay(new Date()), endOfDay(new Date())]
+          },
+          {
+            label: 'yesterday',
+            value: [startOfDay(addDays(new Date(), -1)), endOfDay(addDays(new Date(), -1))]
+          },
+          {
+            label: 'last7Days',
+            value: [startOfDay(subDays(new Date(), 6)), endOfDay(new Date())]
+          },
+          {
+            label: 'All',
+            value: [startOfDay(earliestDate), endOfDay(new Date())]
+          },
+        ]}
+      />
     </CustomControl>
 
     {overlay}
@@ -77,7 +97,6 @@ const StravaOverlay = () => {
 
 export default function Home() {
   const { status } = useStrava()
-  console.log(status)
   return <MapContainer
     center={[51.505, -0.09]}
     zoom={13}

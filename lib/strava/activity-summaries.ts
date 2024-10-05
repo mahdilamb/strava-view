@@ -17,7 +17,7 @@ export async function getActivities(
     );
   } else if (dateRange === undefined) {
     result = await db.getAllFromIndex("activitySummaries", "typeIdx", type);
-  } else if (type === undefined) {
+  } else if (type === undefined && (dateRange[0] - dateRange[1])) {
     result = await db.getAllFromIndex(
       "activitySummaries",
       "startDateIdx",
