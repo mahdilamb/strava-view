@@ -1,11 +1,10 @@
 "use client"
 
+import { ActivitiesApi, Configuration } from "@/strava";
 import { useEffect, useState } from "react";
 import { authUrl } from "../strava-service";
 import { AuthTokenDetails, refreshToken } from "../strava-service/authorization";
-import { initDB, lastSynchronization, StravaDB, StravaDBv1, syncDB, syncDetails } from "./sync";
-import { IDBPDatabase } from "idb";
-import { ActivitiesApi, Configuration } from "@/strava";
+import { initDB, lastSynchronization, StravaDB, syncDB, syncDetails } from "./sync";
 
 
 export const STORAGE_KEY = "stravaAuth";

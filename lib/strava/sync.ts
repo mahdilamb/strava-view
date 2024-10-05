@@ -1,5 +1,5 @@
 "use client";
-import { DBSchema, IDBPDatabase, openDB } from "idb";
+import { AuthTokenDetails } from "@/lib/strava-service/authorization";
 import {
   ActivitiesApi,
   ActivityType,
@@ -8,7 +8,7 @@ import {
   SportType,
   SummaryActivity,
 } from "@/strava";
-import { AuthTokenDetails } from "@/lib/strava-service/authorization";
+import { DBSchema, IDBPDatabase, openDB } from "idb";
 import { detailsSynced, syncActivityDetails } from "./activities";
 import { activityIds } from "./activity-summaries";
 

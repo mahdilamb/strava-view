@@ -1,10 +1,10 @@
 "use client"
 
 
-import { useContext, useMemo } from 'react';
+import lowess from '@stdlib/stats-lowess';
+import { useContext } from 'react';
 import Plot from 'react-plotly.js';
 import { RunDataContext } from './layout';
-import lowess from '@stdlib/stats-lowess';
 
 
 export default function SpeedOverTime() {

@@ -1,25 +1,20 @@
 "use client";
-import "leaflet/dist/leaflet.css";
-import 'rsuite/DateRangePicker/styles/index.css';
-import "./styles.css"
-import { MapContainer } from "react-leaflet/MapContainer";
-import { LocationControls } from "@/ui/map-controls/location-controls";
-import { TileLayer } from "react-leaflet/TileLayer";
 import * as mapLayers from "@/lib/leaflet/map-layers";
+import { earliestActivity, getActivities } from "@/lib/strava/activity-summaries";
+import { ActivityType } from "@/strava/models/ActivityType";
+import { LocationControls } from "@/ui/map-controls/location-controls";
 import { StravaButton } from "@/ui/strava";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSync } from "@fortawesome/free-solid-svg-icons/faSync"
-import { StravaDBv1, earliestActivity, getActivities } from "@/lib/strava/activity-summaries"
-import { SummaryActivityDecoded } from "@/lib/strava-service/service"
-import { ActivityType } from "@/strava/models/ActivityType"
-import { IDBPDatabase } from "idb"
-import { ReactElement, useEffect, useState } from "react"
-import Image from 'next/image'
+import "leaflet/dist/leaflet.css";
+import { ReactElement, useEffect, useState } from "react";
+import { MapContainer } from "react-leaflet/MapContainer";
+import { TileLayer } from "react-leaflet/TileLayer";
+import 'rsuite/DateRangePicker/styles/index.css';
+import "./styles.css";
 
-import { Polyline } from "react-leaflet"
-import DateRangePicker from 'rsuite/DateRangePicker';
-import { CustomControl } from "@/ui/map-controls/control";
 import { useStrava } from "@/lib/strava";
+import { CustomControl } from "@/ui/map-controls/control";
+import { Polyline } from "react-leaflet";
+import DateRangePicker from 'rsuite/DateRangePicker';
 import { addDays, endOfDay, startOfDay, subDays } from "rsuite/esm/internals/utils/date";
 export type SelectedDate = [Date, Date]
 

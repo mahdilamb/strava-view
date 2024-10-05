@@ -1,6 +1,5 @@
-import { IDBPDatabase } from "idb";
-import { ActivitiesApi } from "@/strava/apis/ActivitiesApi";
 import { DetailedActivity } from "@/strava";
+import { ActivitiesApi } from "@/strava/apis/ActivitiesApi";
 import { StravaDB } from "./sync";
 export const getActivityDetails = async (
   db: StravaDB,

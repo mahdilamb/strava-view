@@ -1,5 +1,5 @@
-import { parseGPXv1_1, parseTCXv2, schema } from "gpx-tcx";
 import fs from "fs";
+import { parseGPXv1_1, parseTCXv2, schema } from "gpx-tcx";
 import { GPXv1_1Document, TCXv2Document } from "gpx-tcx/lib/schemas";
 export const loadFile = (path: string) => {
   const schemaType: schema = path.endsWith(".gpx") ? "GPXv1.1" : "TCXv2";
@@ -42,17 +42,3 @@ export const loadFile = (path: string) => {
     );
   }
 };
-
-console.log(
-  loadFile(
-    "/mnt/c/Users/mahdi/Downloads/export_1892306/activities/539476637.gpx",
-  ),
-);
-
-console.log(
-  loadFile(
-    "/mnt/c/Users/mahdi/Downloads/export_1892306/activities/13240620889.tcx",
-  ),
-
-);
-

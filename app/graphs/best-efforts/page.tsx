@@ -3,9 +3,8 @@
 import { sec2dt } from '@/lib/dates';
 import { RunContext } from '@/ui/strava';
 import lowess from '@stdlib/stats-lowess';
-import { PlotData } from 'plotly.js';
-import { useContext, useEffect, useState } from 'react';
-import Plot from 'react-plotly.js'
+import { useContext } from 'react';
+import Plot from 'react-plotly.js';
 
 const DISTANCES = ["400m", "5K", "10K", "Half-Marathon", 'Marathon']
 

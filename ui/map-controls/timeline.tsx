@@ -1,19 +1,19 @@
 "use client";
+import { sleep } from "@/lib/animations";
+import { combineBounds } from "@/lib/coordinates";
+import * as mapLayers from "@/lib/leaflet/map-layers";
+import { SummaryActivityDecoded } from "@/lib/strava-service/service";
 import {
   FitBoundsOptions,
   LatLngBounds,
   LatLngExpression,
   latLngBounds,
 } from "leaflet";
-import { ActivityTarget } from "./targets";
-import { SummaryActivityDecoded } from "@/lib/strava-service/service";
-import { CustomControl } from "./control";
-import { useMap, Polyline, TileLayer, Rectangle } from "react-leaflet";
-import { sleep } from "@/lib/animations";
-import { combineBounds } from "@/lib/coordinates";
 import { useCallback, useEffect, useState } from "react";
+import { Polyline, TileLayer, useMap } from "react-leaflet";
+import { CustomControl } from "./control";
+import { ActivityTarget } from "./targets";
 import { TracedPolyline } from "./traced-polyline";
-import * as mapLayers from "@/lib/leaflet/map-layers";
 
 const DRAW_DURATION_MS = 10;
 const PAN_DURATION_MS = 100;
