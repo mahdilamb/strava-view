@@ -1,6 +1,4 @@
-"use client";
-import { redirect } from "next/dist/client/components/redirect";
-
-export default function Home() {
-  return redirect(`/activities/run/years/${new Date().getFullYear()}`);
+import { redirect } from 'next/navigation';
+export default async function Home() {
+    redirect('/graphs/best-efforts');
 }

@@ -1,13 +1,11 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    reactStrictMode: false,
-    output: 'standalone',
-    experimental: {
-        serverActions: {
-            bodySizeLimit: '2mb',
-        },
-    },
+  reactStrictMode: true,
+  output: "standalone",
+  experimental: {
+    instrumentationHook: true,
+  },
 };
 
 module.exports = nextConfig;
