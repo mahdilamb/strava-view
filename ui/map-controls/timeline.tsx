@@ -15,8 +15,8 @@ import { useCallback, useEffect, useState } from "react";
 import { TracedPolyline } from "./traced-polyline";
 import * as mapLayers from "@/lib/leaflet/map-layers";
 
-const DRAW_DURATION_MS = 100;
-const PAN_DURATION_MS = 1000;
+const DRAW_DURATION_MS = 10;
+const PAN_DURATION_MS = 100;
 
 export const Timeline = (props: {
   activities: SummaryActivityDecoded[];
