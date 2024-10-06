@@ -93,7 +93,7 @@ export const StravaButton = () => {
                 console.log(`Connected to WebSocket on ${address}`);
                 ws.send(JSON.stringify({ 'id': athlete.id }));
             };
-            ws.onmessage = (event) => console.log('Message received:', event.data);
+            ws.onmessage = (event) => console.log('WebSocket message:', JSON.parse(event.data));
             ws.onerror = event => console.error(event)
             ws.onclose = (e) => {
                 console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
