@@ -1,6 +1,6 @@
 "use client";
-import { CustomControl } from "@/ui/map-controls/control";
-import { ControlButton } from "@/ui/map-controls/control-button";
+import { CustomControl } from "@/components/map-controls/control";
+import { ControlButton } from "@/components/map-controls/control-button";
 import { faLocation } from "@fortawesome/free-solid-svg-icons/faLocation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactElement, useEffect, useState } from "react";
