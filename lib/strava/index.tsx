@@ -14,7 +14,8 @@ type StravaService = { status: ServiceStatus } & {
     db?: StravaDB,
     lastSynchronized?: Date,
     sync?: () => Promise<void>,
-    syncDetails?: (ids?: number[]) => Promise<{ [id: number]: boolean }>
+    syncDetails?: (ids?: number[]) => Promise<{ [id: number]: boolean }>,
+    athlete?: AuthTokenDetails["athlete"]
 } & ({
     status: undefined,
 } | {
@@ -26,7 +27,8 @@ type StravaService = { status: ServiceStatus } & {
     api: ActivitiesApi,
     lastSynchronized: Date | undefined,
     sync: () => Promise<void>,
-    syncDetails: (ids?: number[]) => Promise<{ [id: number]: boolean }>
+    syncDetails: (ids?: number[]) => Promise<{ [id: number]: boolean }>,
+    athlete: AuthTokenDetails["athlete"]
 })
 
 
@@ -55,7 +57,7 @@ export const useStrava = (): StravaService => {
             if (!stravaAuthUrl) {
                 return
             }
-            var potentialAuth;
+            var potentialAuth: AuthTokenDetails;
             if (
                 (potentialAuth = JSON.parse(
                     localStorage.getItem(STORAGE_KEY) || "{}",
@@ -72,7 +74,7 @@ export const useStrava = (): StravaService => {
                             throw JSON.stringify(token.errors);
                         }
                         console.debug("Refreshed token.");
-                        return token;
+                        return { ...potentialAuth, ...token };
                     }),
                 );
             }
@@ -131,7 +133,8 @@ export const useStrava = (): StravaService => {
             const result = await syncDetails(stravaDb, api, () => localStorage.removeItem(STORAGE_KEY), ids)
             setSynced(true)
             return result
-        }
+        },
+        athlete: authToken.athlete
     }
 
 }

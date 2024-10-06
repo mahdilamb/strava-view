@@ -4,11 +4,12 @@ import { useStrava } from '@/lib/strava';
 import { detailsSynced } from '@/lib/strava/activities';
 import { activityIds, getActivities } from '@/lib/strava/activity-summaries';
 import { StravaActivity } from '@/lib/strava/sync';
+import { getOrigin } from '@/lib/utils';
 import { DetailedActivity } from '@/strava';
 import { faSync } from '@fortawesome/free-solid-svg-icons/faSync';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
-import { createContext, createRef, forwardRef, useEffect, useMemo, useState } from 'react';
+import { createContext, createRef, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
 
 const ImageProps = {
@@ -52,6 +53,7 @@ const StravaSyncStatus = forwardRef((_, ref) => {
         }
         initDetailedSyncStatus()
     }, [syncedDetails, db])
+
     return <div ref={ref} style={{ background: 'blue', width: 240, minHeight: 160, position: 'absolute', bottom: 20, right: 0 }}>
         <ul style={{ maxHeight: 160, height: 160, overflowY: 'auto', width: '100%' }}>{
             activities && Object.entries(activities).sort(function (a, b) {
@@ -66,9 +68,9 @@ const StravaSyncStatus = forwardRef((_, ref) => {
 })
 
 export const StravaButton = () => {
-    const { status, authUrl, lastSynchronized, sync, syncDetails } = useStrava()
+    const { status, authUrl, lastSynchronized, sync, syncDetails, athlete } = useStrava()
     const [hovered, setHovered] = useState(false);
-
+    const websocket = useRef<WebSocket>()
     const syncing = status === "syncing"
     const ref = createRef<HTMLDivElement>()
     useEffect(() => {
@@ -77,8 +79,31 @@ export const StravaButton = () => {
         }
         ref.current.remove()
         document.body.appendChild(ref.current)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        if (!athlete) {
+            return
+        }
+        const connect = () => {
+            const address = `ws://${getOrigin({ split: true })[1]}/api/ws`
+            const ws = websocket.current = new WebSocket(address);
+            ws.onopen = () => {
+                console.log(`Connected to WebSocket on ${address}`);
+                ws.send(JSON.stringify({ 'id': athlete.id }));
+            };
+            ws.onmessage = (event) => console.log('Message received:', event.data);
+            ws.onerror = event => console.error(event)
+            ws.onclose = (e) => {
+                console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+                websocket.current = undefined
+                setTimeout(() => connect(), 1000);
+            };
+        }
+        connect()
+        return () => websocket.current?.close();
+    }, [athlete]);
     return <>{
         // true &&
         hovered &&
