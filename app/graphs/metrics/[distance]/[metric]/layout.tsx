@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { sec2dt } from "@/lib/dates";
 import { DISTANCES } from "@/lib/distances";
 import { StravaActivity } from "@/lib/strava/sync";
-import { RunContext } from '@/ui/strava';
+import { RunContext } from '@/components/strava';
 import { PlotData } from 'plotly.js';
 import { createContext, useContext, useMemo } from 'react';
 

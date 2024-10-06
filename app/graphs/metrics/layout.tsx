@@ -2,7 +2,7 @@
 import { useStrava } from "@/lib/strava";
 import { getActivities } from "@/lib/strava/activity-summaries";
 import { StravaActivity } from "@/lib/strava/sync";
-import { RunContext, StravaButton } from "@/ui/strava";
+import { RunContext, StravaButton } from "@/components/strava";
 import React, { useEffect, useState } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

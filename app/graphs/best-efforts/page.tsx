@@ -1,7 +1,7 @@
 'use client'
 
 import { sec2dt } from '@/lib/dates';
-import { RunContext } from '@/ui/strava';
+import { RunContext } from '@/components/strava';
 import lowess from '@stdlib/stats-lowess';
 import { useContext } from 'react';
 import Plot from 'react-plotly.js';

@@ -2,8 +2,8 @@
 import * as mapLayers from "@/lib/leaflet/map-layers";
 import { earliestActivity, getActivities } from "@/lib/strava/activity-summaries";
 import { ActivityType } from "@/strava/models/ActivityType";
-import { LocationControls } from "@/ui/map-controls/location-controls";
-import { StravaButton } from "@/ui/strava";
+import { LocationControls } from "@/components/map-controls/location-controls";
+import { StravaButton } from "@/components/strava";
 import "leaflet/dist/leaflet.css";
 import { ReactElement, useEffect, useState } from "react";
 import { MapContainer } from "react-leaflet/MapContainer";
@@ -12,7 +12,7 @@ import 'rsuite/DateRangePicker/styles/index.css';
 import "./styles.css";
 
 import { useStrava } from "@/lib/strava";
-import { CustomControl } from "@/ui/map-controls/control";
+import { CustomControl } from "@/components/map-controls/control";
 import { Polyline } from "react-leaflet";
 import DateRangePicker from 'rsuite/DateRangePicker';
 import { addDays, endOfDay, startOfDay, subDays } from "rsuite/esm/internals/utils/date";
