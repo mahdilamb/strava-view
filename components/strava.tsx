@@ -25,6 +25,7 @@ const toIsoDate = (date: Date) => {
 const StravaSyncStatusItem = (props: StravaActivity & { detailsSynced?: () => Promise<void> }) => {
     return <li style={{ fontSize: 'small' }}>{props.detailsSynced && <button onClick={props.detailsSynced}>sync</button>} {props.name}</li>
 }
+// eslint-disable-next-line react/display-name
 const StravaSyncStatus = forwardRef((_, ref) => {
 
     const [activities, setActivities] = useState<{ [date: string]: StravaActivity[] }>()
@@ -39,6 +40,7 @@ const StravaSyncStatus = forwardRef((_, ref) => {
         getActivities(db, 'Run').then((data => {
             setActivities(Object.groupBy(data, (activity) => toIsoDate(activity.startDateLocal)))
         }))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastSynchronized])
     useEffect(() => {
         const initDetailedSyncStatus = async () => {
@@ -75,6 +77,7 @@ export const StravaButton = () => {
         }
         ref.current.remove()
         document.body.appendChild(ref.current)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return <>{
         // true &&

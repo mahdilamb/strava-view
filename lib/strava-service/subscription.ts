@@ -62,7 +62,7 @@ export const subscribeToWebhook = async () => {
   formData.append("client_secret", STRAVA_CLIENT.ClientSecret);
   formData.append("callback_url", webHookUrl);
   formData.append("verify_token", STRAVA_CLIENT.VerifyToken);
-  const response = await await fetch(
+  const response = await fetch(
     "https://www.strava.com/api/v3/push_subscriptions",
     {
       method: "POST",
