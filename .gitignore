@@ -170,5 +170,5 @@ dist
 wwwroot/*.js
 node_modules
 typings
-.tile-cache/
-.ngrok-log
+/.tile-cache/
+/.ngrok-log

@@ -46,7 +46,7 @@ app.prepare().then(async () => {
       app.getUpgradeHandler()(req, socket, head);
     }
 
-    if (pathname?.startsWith(WEBSOCKET_PATH)) {
+    if (pathname === WEBSOCKET_PATH) {
       wss.handleUpgrade(req, socket, head, (ws) => {
         wss.emit("connection", ws, req);
       });
