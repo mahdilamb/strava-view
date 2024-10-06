@@ -3,7 +3,7 @@ import { useStrava } from "@/lib/strava";
 import { detailsSynced, getActivityDetails } from "@/lib/strava/activities";
 import { activityIds } from "@/lib/strava/activity-summaries";
 import { DetailedActivity } from "@/strava";
-import { RunContext, StravaButton } from "@/ui/strava";
+import { RunContext, StravaButton } from "@/components/strava";
 import React, { useEffect, useState } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
