@@ -1,4 +1,4 @@
-.PHONY: help strava-api serve pretty encode-secrets install-ngrok
+.PHONY: help init strava-api serve pretty encode-secrets install-ngrok
 default: help
 SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
 
@@ -39,3 +39,6 @@ install-ngrok:
 
 ngrok:
 	@rm -rf .ngrok-log; ngrok http --log .ngrok-log http://localhost:3000
+
+init:
+	npm run init

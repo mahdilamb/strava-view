@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "init": "[ -f 'strava.auth.enc.json' ] || npx ts-node strava-auth.ts && make age-key && make encode-secrets file=strava.auth.json",
     "dev": "npx ts-node-dev server.ts",
     "build": "next build",
     "start": "NODE_ENV=production npx ts-node server.ts",
