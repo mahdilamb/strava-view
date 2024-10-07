@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -12,11 +12,16 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "jsx": "preserve",
     "incremental": true,
+    "preserveConstEnums": true,
     "plugins": [
       {
         "name": "next"
@@ -27,7 +32,8 @@
         "./*"
       ]
     },
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
   },
   "include": [
     "next-env.d.ts",
@@ -39,9 +45,9 @@
     "node_modules"
   ],
   "ts-node": {
+    "transpileOnly": true,
     "compilerOptions": {
-      "module": "commonjs",
-      "sourceMap": true
+      "module": "commonjs"
     }
   }
 }

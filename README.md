@@ -25,6 +25,6 @@ The log file that is produced is scraped for the reverse-proxy address, so ngrok
 For usual running:
 
 `make ngrok` in one terminal
-`make server` in a separate terminal
+`make serve` in a separate terminal
 
 You should be able to access the site at [http://localhost:3000]
