@@ -1,0 +1,15 @@
+{
+  "ignore": [".next", "node_modules"],
+  "watch": [
+    "server.ts",
+    "instrumentation.ts",
+    "app/**/*",
+    "components/**/*",
+    "lib/**/*",
+    "pages/**/*",
+    "src/**/*",
+    "public/**/*"
+  ],
+  "ext": "js,jsx,mjs,cjs,ts,tsx,json",
+  "exec": "ts-node ./server.ts"
+}
