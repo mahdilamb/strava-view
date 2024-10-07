@@ -49,12 +49,13 @@ app
 
       if (pathname === "/_next/webpack-hmr") {
         app.getUpgradeHandler()(req, socket, head);
-      }
+      } 
 
       if (pathname === WEBSOCKET_PATH) {
         wss.handleUpgrade(req, socket, head, (ws) => {
           wss.emit("connection", ws, req);
         });
+        
       }
     });
   })
