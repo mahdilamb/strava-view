@@ -30,6 +30,11 @@ const evaluateActivity = (activity: string): ActivityType | undefined => {
     if (activity === 'all' || activity === '-') {
         return
     }
+    const activityType = Object.keys(ActivityType).find(a => a.replaceAll(' ', '').toLocaleLowerCase() === activity.replaceAll(' ', '').toLocaleLowerCase())
+    if (!activityType) {
+        throw `Unknown activity type: ${activity}`
+    }
+    return activityType as ActivityType
 }
 export default function RootLayout({
     children,
@@ -39,8 +44,8 @@ export default function RootLayout({
     const earliestDate = useRef<Date>()
     const params = useParams<{ 'date-range'?: string, 'activity': string }>()
     const { db, status } = useStrava()
-    const activityId = Number(params.activity)
-    const activityFilter = activityId === undefined ? evaluateActivity(params.activity) : undefined
+    const activityId = !Number.isNaN(Number(params.activity)) ? Number(params.activity) : undefined
+    const activityFilter = activityId === undefined ? evaluateActivity(decodeURIComponent(params.activity)) : undefined
     const selectedDate = params["date-range"] ? evaluateDate(decodeURIComponent(params["date-range"])) : undefined
     useEffect(() => {
         const getEarliestDate = async () => {
@@ -54,6 +59,7 @@ export default function RootLayout({
         }
         getEarliestDate()
     }, [db])
+
     return <MapContext.Provider value={{ db, selectedDate, activityFilter, activityId }}>
         <MapContainer
             center={[51.505, -0.09]}

@@ -27,7 +27,8 @@ const ActivityOverlay = (props: { activityId: number, db: StravaDB }) => {
 export default function RedirectOrOverlay() {
     const { activityFilter, activityId, db } = useMapContext()
     if (activityFilter) {
-        return redirect(`/maps/activities/${activityFilter}/dates/all`)
+        redirect(`/maps/activities/${activityFilter}/dates/all`)
+        return
     }
     return <ActivityOverlay activityId={activityId} db={db} />
 
