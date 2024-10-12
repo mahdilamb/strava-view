@@ -9,7 +9,7 @@ import { useMapContext } from "@/app/maps/context";
 import { useSearchParams } from "next/navigation";
 
 
-type PointsView = 'start' | 'end' | null
+type PointsView = 'start' | 'end' | 'both' | null
 export default function StravaOverlay() {
   const { db, activityFilter, selectedDate } = useMapContext()
   const params = useSearchParams()
@@ -30,6 +30,9 @@ export default function StravaOverlay() {
   }
   if (pointsView === 'end') {
     return positions.current && <Polyline positions={positions.current.map(pos => [pos.at(-1), pos.at(-1)])}></Polyline>
+  }
+  if (pointsView === 'both') {
+    return positions.current && <><Polyline color='red' positions={positions.current.map(pos => [pos.at(-1), pos.at(-1)])}></Polyline><Polyline color='green' positions={positions.current.map(pos => [pos.at(0), pos.at(0)])}></Polyline></>
   }
   return positions.current && <Polyline positions={positions.current}></Polyline>
 }
